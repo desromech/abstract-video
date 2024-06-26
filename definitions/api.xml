@@ -88,7 +88,7 @@
 
     <interfaces>
         <interface name="platform">
-            <method name="openContext" cname="OpenDevice" returnType="device*">
+            <method name="openContext" cname="OpenDevice" returnType="context*">
                 <arg name="openInfo" type="context_open_info*" />
             </method>
 

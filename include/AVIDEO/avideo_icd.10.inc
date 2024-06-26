@@ -1,0 +1,6 @@
+10,
+avideoGetPlatforms,
+avideoOpenDevice,
+avideoGetPlatformName,
+avideoAddContextReference,
+avideoReleaseContext
