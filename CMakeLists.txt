@@ -41,7 +41,8 @@ endif()
 include_directories(
 .
 include
-thirdparty/ffmpeg
+${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg
+${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg
 )
 
 # Set output dir.

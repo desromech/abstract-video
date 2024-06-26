@@ -1,4 +1,5 @@
 #include "context.hpp"
+#include "stream.hpp"
 
 namespace AvideoAVCodec
 {
@@ -20,7 +21,11 @@ bool AVCodecContext::initialize(avideo_context_open_info* openInfo)
 
 avideo::stream_ptr AVCodecContext::openStreamWithURL(avideo_cstring url)
 {
-    return nullptr;
+    auto stream = avideo::makeObject<AVCodecStream> ();
+    if(!stream.as<AVCodecStream>()->initializeWithURL(url))
+        return nullptr;
+
+    return stream.disown();
 }
 
 } // End of namespace AvideoAVCodec
