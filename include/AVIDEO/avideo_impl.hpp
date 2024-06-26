@@ -380,6 +380,11 @@ typedef ref_counter<context> *context_ptr;
 typedef ref<context> context_ref;
 typedef weak_ref<context> context_weakref;
 
+struct stream;
+typedef ref_counter<stream> *stream_ptr;
+typedef ref<stream> stream_ref;
+typedef weak_ref<stream> stream_weakref;
+
 // Interface wrapper for avideo_platform.
 struct platform : base_interface
 {
@@ -395,6 +400,15 @@ struct context : base_interface
 {
 public:
 	typedef context main_interface;
+	virtual stream_ptr openStreamWithURL(avideo_cstring url) = 0;
+};
+
+
+// Interface wrapper for avideo_stream.
+struct stream : base_interface
+{
+public:
+	typedef stream main_interface;
 };
 
 

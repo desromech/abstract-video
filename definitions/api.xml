@@ -102,6 +102,18 @@
 
             <method name="release" cname="ReleaseContext" returnType="error">
             </method>
+
+            <method name="openStreamWithURL" cname="OpenStreamWithURL" returnType="stream*">
+                <arg name="url" type="cstring" />
+            </method>
+        </interface>
+
+        <interface name="stream">
+            <method name="addReference" cname="AddStreamReference" returnType="error">
+            </method>
+
+            <method name="release" cname="ReleaseStream" returnType="error">
+            </method>
         </interface>
     </interfaces>
 </version>

@@ -31,6 +31,24 @@ AVIDEOCBindings >> release_context: context [
 	^ self externalCallFailed
 ]
 
+{ #category : #'context' }
+AVIDEOCBindings >> openStreamWithURL_context: context url: url [
+	<cdecl: void* 'avideoOpenStreamWithURL' (void* byte*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'stream' }
+AVIDEOCBindings >> addReference_stream: stream [
+	<cdecl: long 'avideoAddStreamReference' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'stream' }
+AVIDEOCBindings >> release_stream: stream [
+	<cdecl: long 'avideoReleaseStream' (void*)>
+	^ self externalCallFailed
+]
+
 { #category : #'global c functions' }
 AVIDEOCBindings >> getPlatforms_numplatforms: numplatforms platforms: platforms ret_numplatforms: ret_numplatforms [
 	<cdecl: long 'avideoGetPlatforms' (ulong void* ulong*)>

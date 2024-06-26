@@ -28,6 +28,21 @@ AVIDEOCBindings >> release_context: context [
 	^ self ffiCall: #(avideo_error avideoReleaseContext (avideo_context* context) )
 ]
 
+{ #category : #'context' }
+AVIDEOCBindings >> openStreamWithURL_context: context url: url [
+	^ self ffiCall: #(avideo_stream* avideoOpenStreamWithURL (avideo_context* context , avideo_cstring url) )
+]
+
+{ #category : #'stream' }
+AVIDEOCBindings >> addReference_stream: stream [
+	^ self ffiCall: #(avideo_error avideoAddStreamReference (avideo_stream* stream) )
+]
+
+{ #category : #'stream' }
+AVIDEOCBindings >> release_stream: stream [
+	^ self ffiCall: #(avideo_error avideoReleaseStream (avideo_stream* stream) )
+]
+
 { #category : #'global c functions' }
 AVIDEOCBindings >> getPlatforms_numplatforms: numplatforms platforms: platforms ret_numplatforms: ret_numplatforms [
 	^ self ffiCall: #(avideo_error avideoGetPlatforms (avideo_size numplatforms , avideo_platform* platforms , avideo_size* ret_numplatforms) )

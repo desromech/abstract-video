@@ -39,6 +39,27 @@ AVIDEO_EXPORT avideo_error avideoReleaseContext(avideo_context* self)
 	return asRefCounter(avideo::context, self)->release();
 }
 
+AVIDEO_EXPORT avideo_stream* avideoOpenStreamWithURL(avideo_context* self, avideo_cstring url)
+{
+	return reinterpret_cast<avideo_stream*> (asRef(avideo::context, self)->openStreamWithURL(url));
+}
+
+//==============================================================================
+// stream C dispatching functions.
+//==============================================================================
+
+AVIDEO_EXPORT avideo_error avideoAddStreamReference(avideo_stream* self)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRefCounter(avideo::stream, self)->retain();
+}
+
+AVIDEO_EXPORT avideo_error avideoReleaseStream(avideo_stream* self)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRefCounter(avideo::stream, self)->release();
+}
+
 
 
 #undef asRef

@@ -18,3 +18,10 @@ AVIDEOContext >> primitiveRelease [
 	self checkErrorCode: resultValue_
 ]
 
+{ #category : #'wrappers' }
+AVIDEOContext >> openStreamWithURL: url [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance openStreamWithURL_context: (self validHandle) url: url.
+	^ AVIDEOStream forHandle: resultValue_
+]
+

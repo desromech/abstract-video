@@ -4,6 +4,8 @@ set(AvideoAVCodec_Sources
     context.hpp
     platform.cpp
     platform.hpp
+    stream.cpp
+    stream.hpp
 )
 
 add_definitions(
@@ -17,4 +19,4 @@ else()
 endif()
 
 add_library(${AvideoAVCodec} SHARED ${AvideoAVCodec_Sources})
-target_link_libraries(${AvideoAVCodec})
+target_link_libraries(${AvideoAVCodec} avformat)

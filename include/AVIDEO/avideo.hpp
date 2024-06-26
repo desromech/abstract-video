@@ -215,9 +215,35 @@ public:
 		avideoThrowIfFailed(avideoReleaseContext(this));
 	}
 
+	inline avideo_ref<avideo_stream> openStreamWithURL(avideo_cstring url)
+	{
+		return avideoOpenStreamWithURL(this, url);
+	}
+
 };
 
 typedef avideo_ref<avideo_context> avideo_context_ref;
+
+// Interface wrapper for avideo_stream.
+struct _avideo_stream
+{
+private:
+	_avideo_stream() {}
+
+public:
+	inline void addReference()
+	{
+		avideoThrowIfFailed(avideoAddStreamReference(this));
+	}
+
+	inline void release()
+	{
+		avideoThrowIfFailed(avideoReleaseStream(this));
+	}
+
+};
+
+typedef avideo_ref<avideo_stream> avideo_stream_ref;
 
 
 #endif /* AVIDEO_HPP_ */

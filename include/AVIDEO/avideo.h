@@ -42,6 +42,7 @@ typedef char* avideo_string_buffer;
 
 typedef struct _avideo_platform avideo_platform;
 typedef struct _avideo_context avideo_context;
+typedef struct _avideo_stream avideo_stream;
 
 typedef enum {
 	AVIDEO_OK = 0,
@@ -76,9 +77,18 @@ AVIDEO_EXPORT avideo_cstring avideoGetPlatformName(avideo_platform* platform);
 /* Methods for interface avideo_context. */
 typedef avideo_error (*avideoAddContextReference_FUN) (avideo_context* context);
 typedef avideo_error (*avideoReleaseContext_FUN) (avideo_context* context);
+typedef avideo_stream* (*avideoOpenStreamWithURL_FUN) (avideo_context* context, avideo_cstring url);
 
 AVIDEO_EXPORT avideo_error avideoAddContextReference(avideo_context* context);
 AVIDEO_EXPORT avideo_error avideoReleaseContext(avideo_context* context);
+AVIDEO_EXPORT avideo_stream* avideoOpenStreamWithURL(avideo_context* context, avideo_cstring url);
+
+/* Methods for interface avideo_stream. */
+typedef avideo_error (*avideoAddStreamReference_FUN) (avideo_stream* stream);
+typedef avideo_error (*avideoReleaseStream_FUN) (avideo_stream* stream);
+
+AVIDEO_EXPORT avideo_error avideoAddStreamReference(avideo_stream* stream);
+AVIDEO_EXPORT avideo_error avideoReleaseStream(avideo_stream* stream);
 
 /* Installable client driver interface. */
 typedef struct _avideo_icd_dispatch {
@@ -88,6 +98,9 @@ typedef struct _avideo_icd_dispatch {
 	avideoGetPlatformName_FUN avideoGetPlatformName;
 	avideoAddContextReference_FUN avideoAddContextReference;
 	avideoReleaseContext_FUN avideoReleaseContext;
+	avideoOpenStreamWithURL_FUN avideoOpenStreamWithURL;
+	avideoAddStreamReference_FUN avideoAddStreamReference;
+	avideoReleaseStream_FUN avideoReleaseStream;
 } avideo_icd_dispatch;
 
 

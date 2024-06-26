@@ -3,4 +3,7 @@ avideoGetPlatforms,
 avideoOpenDevice,
 avideoGetPlatformName,
 avideoAddContextReference,
-avideoReleaseContext
+avideoReleaseContext,
+avideoOpenStreamWithURL,
+avideoAddStreamReference,
+avideoReleaseStream

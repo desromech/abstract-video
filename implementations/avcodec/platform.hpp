@@ -14,4 +14,5 @@ public:
 };
 
 } // End of namespace AvideoAVCodec
+
 #endif //AVIDEO_PLATFORM_HPP

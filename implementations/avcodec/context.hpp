@@ -12,6 +12,8 @@ public:
     static avideo::context_ref open(avideo_context_open_info* openInfo);
 
     bool initialize(avideo_context_open_info* openInfo);
+	
+    virtual avideo::stream_ptr openStreamWithURL(avideo_cstring url) override;
 };
 
 } // End of namespace AvideoAVCodec

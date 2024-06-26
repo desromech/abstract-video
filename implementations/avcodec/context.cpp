@@ -18,4 +18,9 @@ bool AVCodecContext::initialize(avideo_context_open_info* openInfo)
     return true;
 }
 
+avideo::stream_ptr AVCodecContext::openStreamWithURL(avideo_cstring url)
+{
+    return nullptr;
+}
+
 } // End of namespace AvideoAVCodec
