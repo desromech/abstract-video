@@ -1,0 +1,6 @@
+#ifndef FFVERSION_H
+#define FFVERSION_H
+
+#define FFMPEG_VERSION "avideo minimal ffmpeg"
+
+#endif /* FFVERSION_H */

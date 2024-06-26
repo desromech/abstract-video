@@ -41,7 +41,7 @@ endif()
 include_directories(
 .
 include
-thirdparty/ffmpeg/libavcodec
+thirdparty/ffmpeg
 )
 
 # Set output dir.

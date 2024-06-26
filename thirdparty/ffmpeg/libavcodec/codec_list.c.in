@@ -1,0 +1,6 @@
+static const FFCodec * const codec_list[] = {
+    &ff_vnull_encoder,
+    &ff_anull_encoder,
+    &ff_vnull_decoder,
+    &ff_anull_decoder,
+    NULL };
