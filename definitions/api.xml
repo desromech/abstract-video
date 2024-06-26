@@ -1,0 +1,108 @@
+<api name="Abstract Video">
+<bindings>
+    <language name="C">
+        <property key="headerFile" value="avideo.h" />
+        <property key="constantPrefix" value="AVIDEO_" />
+        <property key="typePrefix" value="avideo_" />
+        <property key="functionPrefix" value="avideo" />
+        <property key="headerInclude" value="&lt;AVIDEO/avideo.h&gt;" />
+        <property key="icdIncludeFile" value="avideo_icd.10.inc" />
+    </language>
+
+    <language name="C++">
+        <property key="headerFile" value="avideo.hpp" />
+    </language>
+
+    <language name="C++/Impl">
+        <property key="headerFile" value="avideo_impl.hpp" />
+        <property key="dispatchIncludeFile" value="avideo_impl_dispatch.inc" />
+        <property key="namespace" value="avideo" />
+    </language>
+
+    <language name="Pharo">
+        <property key="namespacePrefix" value="AVIDEO" />
+        <property key="package" value="AbstractVideo-GeneratedPharo" />
+    </language>
+
+    <language name="Squeak">
+        <property key="namespacePrefix" value="AVIDEO" />
+        <property key="package" value="AbstractVideo-GeneratedSqueak" />
+        <property key="externalStructureSuperClass" value="ExternalStructure" />
+        <property key="externalUnionSuperClass" value="ExternalUnion" />
+    </language>
+</bindings>
+
+<version name="1.0">
+    <types>
+        <typedef name="byte" ctype="unsigned char" sysmelType="UInt8"/>
+        <typedef name="sbyte" ctype="signed char" sysmelType="Int8" />
+        <typedef name="short" ctype="signed short" sysmelType="Int16" />
+        <typedef name="ushort" ctype="unsigned short" sysmelType="UInt16" />
+        <typedef name="int" ctype="signed int" sysmelType="Int32" />
+        <typedef name="uint" ctype="unsigned int" sysmelType="UInt32" />
+        <typedef name="pointer" ctype="void*" sysmelType="Void pointer" />
+        <typedef name="size" ctype="unsigned int" sysmelType="UInt32" />
+        <typedef name="enum" ctype="int" sysmelType="Int32" />
+        <typedef name="bool" ctype="int" sysmelType="Int32" />
+
+        <typedef name="float" ctype="float" sysmelType="Float32" />
+        <typedef name="double" ctype="double" sysmelType="Float64" />
+
+        <typedef name="bitfield" ctype="unsigned int" sysmelType="UInt32" />
+
+        <typedef name="cstring" ctype="const char*" sysmelType="Char8 const pointer" />
+        <typedef name="string" ctype="const char*" pharoType="byte*" sysmelType="Char8 const pointer" />
+        <typedef name="string_length" ctype="int" sysmelType="UInt32" />
+
+        <typedef name="cstring_buffer" ctype="char*" sysmelType="Char8 pointer" />
+        <typedef name="string_buffer" ctype="char*" pharoType="byte*" sysmelType="Char8 pointer" />
+    </types>
+
+	<structs>
+        <struct name="context_open_info">
+        </struct>
+	</structs>
+
+    <constants>
+        <enum name="error">
+            <constant name="Ok" value="0" />
+            <constant name="Error" value="-1" />
+            <constant name="NullPointer" value="-2" />
+            <constant name="InvalidOperation" value="-3" />
+            <constant name="InvalidParameter" value="-4" />
+            <constant name="OutOfBounds" value="-5" />
+            <constant name="Unsupported" value="-6" />
+            <constant name="Unimplemented" value="-7" />
+            <constant name="NotCurrentContext" value="-8" />
+            <constant name="OutOfMemory" value="-9" />
+        </enum>
+    </constants>
+
+    <globals>
+        <function name="getPlatforms" cname="GetPlatforms" returnType="error" category="platform">
+            <arg name="numplatforms" type="size" />
+            <arg name="platforms" type="platform**" arrayReturn="true"/>
+            <arg name="ret_numplatforms" type="size*" />
+        </function>
+    </globals>
+
+    <interfaces>
+        <interface name="platform">
+            <method name="openContext" cname="OpenDevice" returnType="device*">
+                <arg name="openInfo" type="context_open_info*" />
+            </method>
+
+            <method name="getName" cname="GetPlatformName" returnType="cstring">
+            </method>
+        </interface>
+
+        <interface name="context">
+            <method name="addReference" cname="AddContextReference" returnType="error">
+            </method>
+
+            <method name="release" cname="ReleaseContext" returnType="error">
+            </method>
+        </interface>
+    </interfaces>
+</version>
+</api>
