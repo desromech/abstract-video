@@ -60,6 +60,7 @@
 #define CONFIG_SMALL 0
 #define CONFIG_SHARED 1
 #define CONFIG_STATIC 0
+#define CONFIG_ZLIB 0
 
 #define HAVE_PRAGMA_DEPRECATED 1
 #define HAVE_BIGENDIAN 0
@@ -72,6 +73,12 @@
 #else
 #define HAVE_PTHREADS 1
 #define HAVE_W32THREADS 0
+#endif
+
+#ifdef _WIN32
+#   define HAVE_DOS_PATHS 1
+#else
+#   define HAVE_DOS_PATHS 0
 #endif
 
 #cmakedefine01 HAVE_ATANF

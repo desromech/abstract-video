@@ -45,3 +45,4 @@ configure_file(config_components.h.in config_components.h)
 
 add_subdirectory(libavutil)
 add_subdirectory(libavcodec)
+add_subdirectory(libavformat)
