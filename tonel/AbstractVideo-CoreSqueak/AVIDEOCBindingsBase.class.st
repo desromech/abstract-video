@@ -9,7 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 AVIDEOCBindingsBase class >> moduleName [
-	^ 'Agpu'
+	^ 'Avideo'
 ]
 
 { #category : #'as yet unclassified' }

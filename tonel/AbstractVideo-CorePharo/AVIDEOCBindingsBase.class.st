@@ -9,11 +9,11 @@ Class {
 
 { #category : #'library downloading' }
 AVIDEOCBindingsBase >> fetchLibrary [
-	PhaNAPIGitHubRelease fetchLibrary: 'Agpu' fromIcebergRepoOfClass: self class
+	PhaNAPIGitHubRelease fetchLibrary: 'Avideo' fromIcebergRepoOfClass: self class
 
 ]
 
 { #category : #'library path' }
 AVIDEOCBindingsBase >> findLibraryPath [
-	^ PhaNAPI fullLibraryPathForCurrentPlatform: 'Agpu' package: 'abstract-gpu'
+	^ PhaNAPI fullLibraryPathForCurrentPlatform: 'Avideo' package: 'abstract-video'
 ]
