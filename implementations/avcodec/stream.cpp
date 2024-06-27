@@ -16,6 +16,8 @@ AVCodecStream::~AVCodecStream()
 
 bool AVCodecStream::initializeWithURL(const char *url)
 {
+    // See https://github.com/leandromoreira/ffmpeg-libav-tutorial for the
+    // sample which is adapted for implementing this.
     formatContext = avformat_alloc_context();
     if(!formatContext)
         return false;
@@ -26,6 +28,23 @@ bool AVCodecStream::initializeWithURL(const char *url)
 
     if (avformat_find_stream_info(formatContext,  NULL) < 0)
         return false;
+
+    for(unsigned int i = 0; i < formatContext->nb_streams; ++i)
+    {
+        auto localCodecParameters = formatContext->streams[i]->codecpar;
+        auto decoder = avcodec_find_decoder(localCodecParameters->codec_id);
+        if(!decoder)
+            continue;
+
+        if(localCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO)
+        {
+            printf("Video stream %d: %dx%d\n", i, localCodecParameters->width, localCodecParameters->height);
+        }
+        else if(localCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO)
+        {
+            printf("Audio stream %d: channels %d sample rate %d\n", i, localCodecParameters->ch_layout.nb_channels, localCodecParameters->sample_rate);
+        }
+    }
 
     return true;
 }

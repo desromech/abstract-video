@@ -21,7 +21,7 @@ playground:
 
 ```smalltalk
 Metacello new
-   baseline: 'AbstractGPU';
+   baseline: 'AbstractVideo';
    repository: 'github://desromech/abstract-video/tonel';
    load
 ```

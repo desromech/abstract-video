@@ -1,4 +1,4 @@
-# AbstractGPU cmake build script.
+# AbstractVideo cmake build script.
 cmake_minimum_required(VERSION 3.5)
 project(AVIDEO)
 
