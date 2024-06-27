@@ -1,1 +1,1 @@
-Package { #name : #'AbstractVideo-CorePharo' }
+Package { #name : 'AbstractVideo-CorePharo' }

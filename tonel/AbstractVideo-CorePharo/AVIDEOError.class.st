@@ -2,20 +2,21 @@
 I wrap an AVIDEO error code.
 "
 Class {
-	#name : #AVIDEOError,
-	#superclass : #Error,
+	#name : 'AVIDEOError',
+	#superclass : 'Error',
 	#instVars : [
 		'errorCode'
 	],
-	#category : #'AbstractVideo-CorePharo'
+	#category : 'AbstractVideo-CorePharo',
+	#package : 'AbstractVideo-CorePharo'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOError >> errorCode [
 	^ errorCode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOError >> errorCode: anObject [
 	errorCode := anObject
 ]

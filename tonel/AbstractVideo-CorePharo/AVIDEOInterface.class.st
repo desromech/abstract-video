@@ -2,31 +2,32 @@
 I provide common APIs for interfaces that are exported from AVIDEO.
 "
 Class {
-	#name : #AVIDEOInterface,
-	#superclass : #AVIDEOBindingsCommon,
+	#name : 'AVIDEOInterface',
+	#superclass : 'AVIDEOBindingsCommon',
 	#instVars : [
 		'handle'
 	],
-	#category : #'AbstractVideo-CorePharo'
+	#category : 'AbstractVideo-CorePharo',
+	#package : 'AbstractVideo-CorePharo'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AVIDEOInterface class >> forHandle: aHandle [
 	(aHandle isNil or: [ aHandle isNull ]) ifTrue: [ ^ nil ].
 	^ self new handle: aHandle; autoRelease; yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AVIDEOInterface class >> forManualHandle: aHandle [
 	^ self new handle: aHandle
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 AVIDEOInterface >> autoRelease [
 	^ self class finalizationRegistry add: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOInterface >> finalize [
 	(handle isNotNil and: [ handle isNull not ]) ifTrue: [
 		self primitiveRelease
@@ -34,29 +35,29 @@ AVIDEOInterface >> finalize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOInterface >> handle [
 	^ handle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOInterface >> handle: aHandle [
 	handle := aHandle
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AVIDEOInterface >> isNull [
 	^ handle isNil or: [ handle isNull ]
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 AVIDEOInterface >> release [
 	self class finalizationRegistry remove: self ifAbsent: [].
 	self primitiveRelease.
 	handle := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOInterface >> validHandle [
 	handle ifNil: [ self error: 'Trying to use an object with an invalid handle.' ].
 	^ handle

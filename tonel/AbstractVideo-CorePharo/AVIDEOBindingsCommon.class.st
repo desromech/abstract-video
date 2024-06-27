@@ -2,24 +2,25 @@
 I provide common APIs for the different AVIDEO bindings.
 "
 Class {
-	#name : #AVIDEOBindingsCommon,
-	#superclass : #Object,
-	#category : #'AbstractVideo-CorePharo'
+	#name : 'AVIDEOBindingsCommon',
+	#superclass : 'Object',
+	#category : 'AbstractVideo-CorePharo',
+	#package : 'AbstractVideo-CorePharo'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 AVIDEOBindingsCommon class >> checkErrorCode: errorCode [
 	errorCode < 0 ifTrue: [
 		self error: 'Got an error from AVIDEO.'
 	]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOBindingsCommon class >> validHandleOf: anObject [
 	^ anObject ifNil: [ ExternalAddress null ] ifNotNil: [ anObject validHandle ]
 ]
 
-{ #category : #'error checking' }
+{ #category : 'error checking' }
 AVIDEOBindingsCommon >> checkErrorCode: errorCode [
 	errorCode < 0 ifTrue: [
 		^ AVIDEOError new
@@ -28,12 +29,12 @@ AVIDEOBindingsCommon >> checkErrorCode: errorCode [
 	]
 ]
 
-{ #category : #'freeing resources' }
+{ #category : 'freeing resources' }
 AVIDEOBindingsCommon >> release [
 	self primitiveRelease.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOBindingsCommon >> validHandleOf: anObject [
 	^ anObject ifNotNil: [ anObject validHandle ]
 ]

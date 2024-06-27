@@ -2,20 +2,21 @@
 I am an utility for copying bits between buffers.
 "
 Class {
-	#name : #AVIDEOMemoryCopier,
-	#superclass : #Object,
+	#name : 'AVIDEOMemoryCopier',
+	#superclass : 'Object',
 	#instVars : [
 		'externalAddress'
 	],
-	#category : #'AbstractVideo-CorePharo'
+	#category : 'AbstractVideo-CorePharo',
+	#package : 'AbstractVideo-CorePharo'
 }
 
-{ #category : #constructing }
+{ #category : 'constructing' }
 AVIDEOMemoryCopier class >> forExternalAddress: anExternalAddress [
 	^ self basicNew externalAddress: anExternalAddress; yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOMemoryCopier >> copyBytes: byteCount at: start into: destination at: destinationStart [
 	| sourceAddress destAddress |
 	sourceAddress := externalAddress + (start - 1).
@@ -23,19 +24,19 @@ AVIDEOMemoryCopier >> copyBytes: byteCount at: start into: destination at: desti
 	LibC memCopy: sourceAddress to: destAddress size: byteCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOMemoryCopier >> externalAddress [
 
 	^ externalAddress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOMemoryCopier >> externalAddress: anExternalAddress [
 
 	externalAddress := anExternalAddress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVIDEOMemoryCopier >> replaceFrom: start to: stop with: replacement startingAt: repStart [
 	| sourceAddress destAddress size |
 	sourceAddress := replacement tfPointerAddress + (repStart - 1).
