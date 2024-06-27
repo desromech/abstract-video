@@ -39,25 +39,87 @@ AVIDEO_EXPORT avideo_error avideoReleaseContext(avideo_context* self)
 	return asRefCounter(avideo::context, self)->release();
 }
 
-AVIDEO_EXPORT avideo_stream* avideoOpenStreamWithURL(avideo_context* self, avideo_cstring url)
+AVIDEO_EXPORT avideo_container* avideoOpenContainerWithURL(avideo_context* self, avideo_cstring url)
 {
-	return reinterpret_cast<avideo_stream*> (asRef(avideo::context, self)->openStreamWithURL(url));
+	return reinterpret_cast<avideo_container*> (asRef(avideo::context, self)->openContainerWithURL(url));
 }
 
 //==============================================================================
-// stream C dispatching functions.
+// container C dispatching functions.
 //==============================================================================
 
-AVIDEO_EXPORT avideo_error avideoAddStreamReference(avideo_stream* self)
+AVIDEO_EXPORT avideo_error avideoAddContainerReference(avideo_container* self)
 {
 	if(!self) return AVIDEO_NULL_POINTER;
-	return asRefCounter(avideo::stream, self)->retain();
+	return asRefCounter(avideo::container, self)->retain();
 }
 
-AVIDEO_EXPORT avideo_error avideoReleaseStream(avideo_stream* self)
+AVIDEO_EXPORT avideo_error avideoReleaseContainer(avideo_container* self)
 {
 	if(!self) return AVIDEO_NULL_POINTER;
-	return asRefCounter(avideo::stream, self)->release();
+	return asRefCounter(avideo::container, self)->release();
+}
+
+AVIDEO_EXPORT avideo_double avideoContainerGetStartTime(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getStartTime();
+}
+
+AVIDEO_EXPORT avideo_double avideoContainerGetDuration(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getDuration();
+}
+
+AVIDEO_EXPORT avideo_error avideoContainerSeekTime(avideo_container* self, avideo_double time)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->seekTime(time);
+}
+
+AVIDEO_EXPORT avideo_error avideoContainerSeekFrameIndex(avideo_container* self, avideo_size frame_index)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->seekFrame(frame_index);
+}
+
+AVIDEO_EXPORT avideo_bool avideoContainerHasVideoStream(avideo_container* self)
+{
+	return asRef(avideo::container, self)->hasVideoStream();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamWidth(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoStreamWidth();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamHeight(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoStreamHeight();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamFrameCount(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoStreamFrameCount();
+}
+
+AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoStreamFrameRate();
+}
+
+AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* self)
+{
+	return asRef(avideo::container, self)->hasAudioStream();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamChannels(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getAudioStreamChannels();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamSampleRate(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getAudioStreamSampleRate();
 }
 
 

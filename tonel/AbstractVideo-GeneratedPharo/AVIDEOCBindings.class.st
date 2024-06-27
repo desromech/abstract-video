@@ -29,18 +29,78 @@ AVIDEOCBindings >> release_context: context [
 ]
 
 { #category : #'context' }
-AVIDEOCBindings >> openStreamWithURL_context: context url: url [
-	^ self ffiCall: #(avideo_stream* avideoOpenStreamWithURL (avideo_context* context , avideo_cstring url) )
+AVIDEOCBindings >> openContainerWithURL_context: context url: url [
+	^ self ffiCall: #(avideo_container* avideoOpenContainerWithURL (avideo_context* context , avideo_cstring url) )
 ]
 
-{ #category : #'stream' }
-AVIDEOCBindings >> addReference_stream: stream [
-	^ self ffiCall: #(avideo_error avideoAddStreamReference (avideo_stream* stream) )
+{ #category : #'container' }
+AVIDEOCBindings >> addReference_container: container [
+	^ self ffiCall: #(avideo_error avideoAddContainerReference (avideo_container* container) )
 ]
 
-{ #category : #'stream' }
-AVIDEOCBindings >> release_stream: stream [
-	^ self ffiCall: #(avideo_error avideoReleaseStream (avideo_stream* stream) )
+{ #category : #'container' }
+AVIDEOCBindings >> release_container: container [
+	^ self ffiCall: #(avideo_error avideoReleaseContainer (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getStartTime_container: container [
+	^ self ffiCall: #(avideo_double avideoContainerGetStartTime (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getDuration_container: container [
+	^ self ffiCall: #(avideo_double avideoContainerGetDuration (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> seekTime_container: container time: time [
+	^ self ffiCall: #(avideo_error avideoContainerSeekTime (avideo_container* container , avideo_double time) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> seekFrame_container: container frame_index: frame_index [
+	^ self ffiCall: #(avideo_error avideoContainerSeekFrameIndex (avideo_container* container , avideo_size frame_index) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> hasVideoStream_container: container [
+	^ self ffiCall: #(avideo_bool avideoContainerHasVideoStream (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamWidth_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoStreamWidth (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamHeight_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoStreamHeight (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamFrameCount_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoStreamFrameCount (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
+	^ self ffiCall: #(avideo_float avideoContainerGetVideoStreamFrameRate (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> hasAudioStream_container: container [
+	^ self ffiCall: #(avideo_bool avideoContainerHasAudioStream (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getAudioStreamChannels_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetAudioStreamChannels (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getAudioStreamSampleRate_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetAudioStreamSampleRate (avideo_container* container) )
 ]
 
 { #category : #'global c functions' }

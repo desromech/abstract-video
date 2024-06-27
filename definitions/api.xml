@@ -103,16 +103,54 @@
             <method name="release" cname="ReleaseContext" returnType="error">
             </method>
 
-            <method name="openStreamWithURL" cname="OpenStreamWithURL" returnType="stream*">
+            <method name="openContainerWithURL" cname="OpenContainerWithURL" returnType="container*">
                 <arg name="url" type="cstring" />
             </method>
         </interface>
 
-        <interface name="stream">
-            <method name="addReference" cname="AddStreamReference" returnType="error">
+        <interface name="container">
+            <method name="addReference" cname="AddContainerReference" returnType="error">
             </method>
 
-            <method name="release" cname="ReleaseStream" returnType="error">
+            <method name="release" cname="ReleaseContainer" returnType="error">
+            </method>
+
+            <method name="getStartTime" cname="ContainerGetStartTime" returnType="double">
+            </method>
+
+            <method name="getDuration" cname="ContainerGetDuration" returnType="double">
+            </method>
+
+            <method name="seekTime" cname="ContainerSeekTime" returnType="error">
+                <arg name="time" type="double" />
+            </method>
+
+            <method name="seekFrame" cname="ContainerSeekFrameIndex" returnType="error">
+                <arg name="frame_index" type="size" />
+            </method>
+
+            <method name="hasVideoStream" cname="ContainerHasVideoStream" returnType="bool">
+            </method>
+
+            <method name="getVideoStreamWidth" cname="ContainerGetVideoStreamWidth" returnType="size">
+            </method>
+
+            <method name="getVideoStreamHeight" cname="ContainerGetVideoStreamHeight" returnType="size">
+            </method>
+
+            <method name="getVideoStreamFrameCount" cname="ContainerGetVideoStreamFrameCount" returnType="size">
+            </method>
+
+            <method name="getVideoStreamFrameRate" cname="ContainerGetVideoStreamFrameRate" returnType="float">
+            </method>
+
+            <method name="hasAudioStream" cname="ContainerHasAudioStream" returnType="bool">
+            </method>
+
+            <method name="getAudioStreamChannels" cname="ContainerGetAudioStreamChannels" returnType="size">
+            </method>
+
+            <method name="getAudioStreamSampleRate" cname="ContainerGetAudioStreamSampleRate" returnType="size">
             </method>
         </interface>
     </interfaces>

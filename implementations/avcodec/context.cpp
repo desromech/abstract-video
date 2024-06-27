@@ -1,5 +1,5 @@
 #include "context.hpp"
-#include "stream.hpp"
+#include "container.hpp"
 
 namespace AvideoAVCodec
 {
@@ -19,10 +19,10 @@ bool AVCodecContext::initialize(avideo_context_open_info* openInfo)
     return true;
 }
 
-avideo::stream_ptr AVCodecContext::openStreamWithURL(avideo_cstring url)
+avideo::container_ptr AVCodecContext::openContainerWithURL(avideo_cstring url)
 {
-    auto stream = avideo::makeObject<AVCodecStream> ();
-    if(!stream.as<AVCodecStream>()->initializeWithURL(url))
+    auto stream = avideo::makeObject<AVCodecContainer> ();
+    if(!stream.as<AVCodecContainer>()->initializeWithURL(url))
         return nullptr;
 
     return stream.disown();

@@ -42,7 +42,7 @@ typedef char* avideo_string_buffer;
 
 typedef struct _avideo_platform avideo_platform;
 typedef struct _avideo_context avideo_context;
-typedef struct _avideo_stream avideo_stream;
+typedef struct _avideo_container avideo_container;
 
 typedef enum {
 	AVIDEO_OK = 0,
@@ -77,18 +77,42 @@ AVIDEO_EXPORT avideo_cstring avideoGetPlatformName(avideo_platform* platform);
 /* Methods for interface avideo_context. */
 typedef avideo_error (*avideoAddContextReference_FUN) (avideo_context* context);
 typedef avideo_error (*avideoReleaseContext_FUN) (avideo_context* context);
-typedef avideo_stream* (*avideoOpenStreamWithURL_FUN) (avideo_context* context, avideo_cstring url);
+typedef avideo_container* (*avideoOpenContainerWithURL_FUN) (avideo_context* context, avideo_cstring url);
 
 AVIDEO_EXPORT avideo_error avideoAddContextReference(avideo_context* context);
 AVIDEO_EXPORT avideo_error avideoReleaseContext(avideo_context* context);
-AVIDEO_EXPORT avideo_stream* avideoOpenStreamWithURL(avideo_context* context, avideo_cstring url);
+AVIDEO_EXPORT avideo_container* avideoOpenContainerWithURL(avideo_context* context, avideo_cstring url);
 
-/* Methods for interface avideo_stream. */
-typedef avideo_error (*avideoAddStreamReference_FUN) (avideo_stream* stream);
-typedef avideo_error (*avideoReleaseStream_FUN) (avideo_stream* stream);
+/* Methods for interface avideo_container. */
+typedef avideo_error (*avideoAddContainerReference_FUN) (avideo_container* container);
+typedef avideo_error (*avideoReleaseContainer_FUN) (avideo_container* container);
+typedef avideo_double (*avideoContainerGetStartTime_FUN) (avideo_container* container);
+typedef avideo_double (*avideoContainerGetDuration_FUN) (avideo_container* container);
+typedef avideo_error (*avideoContainerSeekTime_FUN) (avideo_container* container, avideo_double time);
+typedef avideo_error (*avideoContainerSeekFrameIndex_FUN) (avideo_container* container, avideo_size frame_index);
+typedef avideo_bool (*avideoContainerHasVideoStream_FUN) (avideo_container* container);
+typedef avideo_size (*avideoContainerGetVideoStreamWidth_FUN) (avideo_container* container);
+typedef avideo_size (*avideoContainerGetVideoStreamHeight_FUN) (avideo_container* container);
+typedef avideo_size (*avideoContainerGetVideoStreamFrameCount_FUN) (avideo_container* container);
+typedef avideo_float (*avideoContainerGetVideoStreamFrameRate_FUN) (avideo_container* container);
+typedef avideo_bool (*avideoContainerHasAudioStream_FUN) (avideo_container* container);
+typedef avideo_size (*avideoContainerGetAudioStreamChannels_FUN) (avideo_container* container);
+typedef avideo_size (*avideoContainerGetAudioStreamSampleRate_FUN) (avideo_container* container);
 
-AVIDEO_EXPORT avideo_error avideoAddStreamReference(avideo_stream* stream);
-AVIDEO_EXPORT avideo_error avideoReleaseStream(avideo_stream* stream);
+AVIDEO_EXPORT avideo_error avideoAddContainerReference(avideo_container* container);
+AVIDEO_EXPORT avideo_error avideoReleaseContainer(avideo_container* container);
+AVIDEO_EXPORT avideo_double avideoContainerGetStartTime(avideo_container* container);
+AVIDEO_EXPORT avideo_double avideoContainerGetDuration(avideo_container* container);
+AVIDEO_EXPORT avideo_error avideoContainerSeekTime(avideo_container* container, avideo_double time);
+AVIDEO_EXPORT avideo_error avideoContainerSeekFrameIndex(avideo_container* container, avideo_size frame_index);
+AVIDEO_EXPORT avideo_bool avideoContainerHasVideoStream(avideo_container* container);
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamWidth(avideo_container* container);
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamHeight(avideo_container* container);
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamFrameCount(avideo_container* container);
+AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_container* container);
+AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* container);
+AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamChannels(avideo_container* container);
+AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamSampleRate(avideo_container* container);
 
 /* Installable client driver interface. */
 typedef struct _avideo_icd_dispatch {
@@ -98,9 +122,21 @@ typedef struct _avideo_icd_dispatch {
 	avideoGetPlatformName_FUN avideoGetPlatformName;
 	avideoAddContextReference_FUN avideoAddContextReference;
 	avideoReleaseContext_FUN avideoReleaseContext;
-	avideoOpenStreamWithURL_FUN avideoOpenStreamWithURL;
-	avideoAddStreamReference_FUN avideoAddStreamReference;
-	avideoReleaseStream_FUN avideoReleaseStream;
+	avideoOpenContainerWithURL_FUN avideoOpenContainerWithURL;
+	avideoAddContainerReference_FUN avideoAddContainerReference;
+	avideoReleaseContainer_FUN avideoReleaseContainer;
+	avideoContainerGetStartTime_FUN avideoContainerGetStartTime;
+	avideoContainerGetDuration_FUN avideoContainerGetDuration;
+	avideoContainerSeekTime_FUN avideoContainerSeekTime;
+	avideoContainerSeekFrameIndex_FUN avideoContainerSeekFrameIndex;
+	avideoContainerHasVideoStream_FUN avideoContainerHasVideoStream;
+	avideoContainerGetVideoStreamWidth_FUN avideoContainerGetVideoStreamWidth;
+	avideoContainerGetVideoStreamHeight_FUN avideoContainerGetVideoStreamHeight;
+	avideoContainerGetVideoStreamFrameCount_FUN avideoContainerGetVideoStreamFrameCount;
+	avideoContainerGetVideoStreamFrameRate_FUN avideoContainerGetVideoStreamFrameRate;
+	avideoContainerHasAudioStream_FUN avideoContainerHasAudioStream;
+	avideoContainerGetAudioStreamChannels_FUN avideoContainerGetAudioStreamChannels;
+	avideoContainerGetAudioStreamSampleRate_FUN avideoContainerGetAudioStreamSampleRate;
 } avideo_icd_dispatch;
 
 

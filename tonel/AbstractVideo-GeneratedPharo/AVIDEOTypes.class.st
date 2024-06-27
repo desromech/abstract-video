@@ -22,7 +22,7 @@ Class {
 		'avideo_string_buffer',
 		'avideo_platform',
 		'avideo_context',
-		'avideo_stream',
+		'avideo_container',
 		'avideo_context_open_info'
 	],
 	#superclass : #SharedPool,
@@ -57,7 +57,7 @@ AVIDEOTypes class >> initialize [
 	avideo_string_buffer := #'byte*'.
 	avideo_platform := #'void'.
 	avideo_context := #'void'.
-	avideo_stream := #'void'.
+	avideo_container := #'void'.
 	avideo_context_open_info := AVIDEOContextOpenInfo.
 ]
 

@@ -1,11 +1,11 @@
 set(AvideoAVCodec_Sources
     common.hpp
+    container.cpp
+    container.hpp
     context.cpp
     context.hpp
     platform.cpp
     platform.hpp
-    stream.cpp
-    stream.hpp
 )
 
 add_definitions(

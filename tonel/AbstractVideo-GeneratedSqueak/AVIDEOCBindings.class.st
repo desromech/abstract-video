@@ -32,20 +32,92 @@ AVIDEOCBindings >> release_context: context [
 ]
 
 { #category : #'context' }
-AVIDEOCBindings >> openStreamWithURL_context: context url: url [
-	<cdecl: void* 'avideoOpenStreamWithURL' (void* byte*)>
+AVIDEOCBindings >> openContainerWithURL_context: context url: url [
+	<cdecl: void* 'avideoOpenContainerWithURL' (void* byte*)>
 	^ self externalCallFailed
 ]
 
-{ #category : #'stream' }
-AVIDEOCBindings >> addReference_stream: stream [
-	<cdecl: long 'avideoAddStreamReference' (void*)>
+{ #category : #'container' }
+AVIDEOCBindings >> addReference_container: container [
+	<cdecl: long 'avideoAddContainerReference' (void*)>
 	^ self externalCallFailed
 ]
 
-{ #category : #'stream' }
-AVIDEOCBindings >> release_stream: stream [
-	<cdecl: long 'avideoReleaseStream' (void*)>
+{ #category : #'container' }
+AVIDEOCBindings >> release_container: container [
+	<cdecl: long 'avideoReleaseContainer' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getStartTime_container: container [
+	<cdecl: double 'avideoContainerGetStartTime' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getDuration_container: container [
+	<cdecl: double 'avideoContainerGetDuration' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> seekTime_container: container time: time [
+	<cdecl: long 'avideoContainerSeekTime' (void* double)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> seekFrame_container: container frame_index: frame_index [
+	<cdecl: long 'avideoContainerSeekFrameIndex' (void* ulong)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> hasVideoStream_container: container [
+	<cdecl: long 'avideoContainerHasVideoStream' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamWidth_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoStreamWidth' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamHeight_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoStreamHeight' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamFrameCount_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoStreamFrameCount' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
+	<cdecl: float 'avideoContainerGetVideoStreamFrameRate' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> hasAudioStream_container: container [
+	<cdecl: long 'avideoContainerHasAudioStream' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getAudioStreamChannels_container: container [
+	<cdecl: ulong 'avideoContainerGetAudioStreamChannels' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getAudioStreamSampleRate_container: container [
+	<cdecl: ulong 'avideoContainerGetAudioStreamSampleRate' (void*)>
 	^ self externalCallFailed
 ]
 

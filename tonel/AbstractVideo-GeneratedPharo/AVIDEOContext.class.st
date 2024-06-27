@@ -19,9 +19,9 @@ AVIDEOContext >> primitiveRelease [
 ]
 
 { #category : #'wrappers' }
-AVIDEOContext >> openStreamWithURL: url [
+AVIDEOContext >> openContainerWithURL: url [
 	| resultValue_ |
-	resultValue_ := AVIDEOCBindings uniqueInstance openStreamWithURL_context: (self validHandle) url: url.
-	^ AVIDEOStream forHandle: resultValue_
+	resultValue_ := AVIDEOCBindings uniqueInstance openContainerWithURL_context: (self validHandle) url: url.
+	^ AVIDEOContainer forHandle: resultValue_
 ]
 

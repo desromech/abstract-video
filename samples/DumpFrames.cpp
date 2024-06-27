@@ -8,7 +8,7 @@ class Sample
 public:
     avideo_platform *platform = nullptr;
     avideo_context_ref context;
-    avideo_stream_ref stream;
+    avideo_container_ref container;
 
     void printHelp()
     {
@@ -60,11 +60,23 @@ public:
         }
         
         // Open the stream
-        stream = context->openStreamWithURL(url.c_str());
-        if(!stream)
+        container = context->openContainerWithURL(url.c_str());
+        if(!container)
         {
             fprintf(stderr, "Failed to open an avideo stream.\n");
             return 1;
+        }
+
+        printf("Opened container with start time: %f duration: %f\n", container->getStartTime(), container->getDuration());
+
+        if(container->hasVideoStream())
+        {
+            printf("Video stream width: %d height: %d fps: %f frames: %d\n", container->getVideoStreamWidth(), container->getVideoStreamHeight(), container->getVideoStreamFrameRate(), container->getVideoStreamFrameCount());
+        }
+
+        if(container->hasAudioStream())
+        {
+            printf("Audio stream channels: %d sampleRate: %d\n", container->getAudioStreamChannels(), container->getAudioStreamSampleRate());
         }
 
         return 0;

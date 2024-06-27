@@ -215,35 +215,95 @@ public:
 		avideoThrowIfFailed(avideoReleaseContext(this));
 	}
 
-	inline avideo_ref<avideo_stream> openStreamWithURL(avideo_cstring url)
+	inline avideo_ref<avideo_container> openContainerWithURL(avideo_cstring url)
 	{
-		return avideoOpenStreamWithURL(this, url);
+		return avideoOpenContainerWithURL(this, url);
 	}
 
 };
 
 typedef avideo_ref<avideo_context> avideo_context_ref;
 
-// Interface wrapper for avideo_stream.
-struct _avideo_stream
+// Interface wrapper for avideo_container.
+struct _avideo_container
 {
 private:
-	_avideo_stream() {}
+	_avideo_container() {}
 
 public:
 	inline void addReference()
 	{
-		avideoThrowIfFailed(avideoAddStreamReference(this));
+		avideoThrowIfFailed(avideoAddContainerReference(this));
 	}
 
 	inline void release()
 	{
-		avideoThrowIfFailed(avideoReleaseStream(this));
+		avideoThrowIfFailed(avideoReleaseContainer(this));
+	}
+
+	inline avideo_double getStartTime()
+	{
+		return avideoContainerGetStartTime(this);
+	}
+
+	inline avideo_double getDuration()
+	{
+		return avideoContainerGetDuration(this);
+	}
+
+	inline void seekTime(avideo_double time)
+	{
+		avideoThrowIfFailed(avideoContainerSeekTime(this, time));
+	}
+
+	inline void seekFrame(avideo_size frame_index)
+	{
+		avideoThrowIfFailed(avideoContainerSeekFrameIndex(this, frame_index));
+	}
+
+	inline avideo_bool hasVideoStream()
+	{
+		return avideoContainerHasVideoStream(this);
+	}
+
+	inline avideo_size getVideoStreamWidth()
+	{
+		return avideoContainerGetVideoStreamWidth(this);
+	}
+
+	inline avideo_size getVideoStreamHeight()
+	{
+		return avideoContainerGetVideoStreamHeight(this);
+	}
+
+	inline avideo_size getVideoStreamFrameCount()
+	{
+		return avideoContainerGetVideoStreamFrameCount(this);
+	}
+
+	inline avideo_float getVideoStreamFrameRate()
+	{
+		return avideoContainerGetVideoStreamFrameRate(this);
+	}
+
+	inline avideo_bool hasAudioStream()
+	{
+		return avideoContainerHasAudioStream(this);
+	}
+
+	inline avideo_size getAudioStreamChannels()
+	{
+		return avideoContainerGetAudioStreamChannels(this);
+	}
+
+	inline avideo_size getAudioStreamSampleRate()
+	{
+		return avideoContainerGetAudioStreamSampleRate(this);
 	}
 
 };
 
-typedef avideo_ref<avideo_stream> avideo_stream_ref;
+typedef avideo_ref<avideo_container> avideo_container_ref;
 
 
 #endif /* AVIDEO_HPP_ */
