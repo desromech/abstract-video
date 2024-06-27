@@ -104,8 +104,14 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> fetchAndDecodeNextFrame_container: container [
-	<cdecl: long 'avideoContainerFetchAndDecodeNextFrame' (void*)>
+AVIDEOCBindings >> fetchAndDecodeNextPacket_container: container [
+	<cdecl: long 'avideoContainerFetchAndDecodeNextPacket' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> fetchAndDecodeNextVideoFrame_container: container [
+	<cdecl: long 'avideoContainerFetchAndDecodeNextVideoFrame' (void*)>
 	^ self externalCallFailed
 ]
 

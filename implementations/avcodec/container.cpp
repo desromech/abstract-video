@@ -126,22 +126,34 @@ avideo_float AVCodecContainer::getVideoStreamFrameRate()
     return videoStreamFrameRate;
 }
 
-avideo_error AVCodecContainer::fetchAndDecodeNextFrame()
+avideo_error AVCodecContainer::fetchAndDecodeNextPacket()
 {
-    bool hasReadVideoFrame = false;
-    while(av_read_frame(formatContext, containerPacket) >= 0 && !hasReadVideoFrame)
+    bool hasReadVideoPacket = false;
+    while(av_read_frame(formatContext, containerPacket) >= 0 && !hasReadVideoPacket)
     {
         if(containerPacket->stream_index == int(videoStreamIndex))
         {
-            int response = avcodec_send_packet(videoCodecContext, containerPacket);
-            avcodec_receive_frame(videoCodecContext, videoFrame);
-            hasReadVideoFrame = true;
+            avcodec_send_packet(videoCodecContext, containerPacket);
+            hasReadVideoPacket = true;
         }
 
         av_packet_unref(containerPacket);
     }
 
-    return hasReadVideoFrame ? AVIDEO_OK : AVIDEO_END_OF_STREAM;
+    return hasReadVideoPacket ? AVIDEO_OK : AVIDEO_END_OF_STREAM;
+
+}
+
+avideo_error AVCodecContainer::fetchAndDecodeNextVideoFrame()
+{
+    int response = avcodec_receive_frame(videoCodecContext, videoFrame);
+    if(response == AVERROR(EAGAIN))
+        return AVIDEO_AGAIN;
+
+    if(response == AVERROR_EOF)
+        return AVIDEO_END_OF_STREAM;
+
+    return response < 0 ? AVIDEO_ERROR : AVIDEO_OK;
 }
 
 avideo_size AVCodecContainer::getVideoFrameIndex()

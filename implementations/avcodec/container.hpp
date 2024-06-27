@@ -6,6 +6,7 @@
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
 }
 
 namespace AvideoAVCodec
@@ -31,7 +32,8 @@ public:
 	virtual avideo_size getVideoStreamFrameCount() override;
 	virtual avideo_float getVideoStreamFrameRate() override;
 
-	virtual avideo_error fetchAndDecodeNextFrame() override;
+	virtual avideo_error fetchAndDecodeNextPacket() override;
+	virtual avideo_error fetchAndDecodeNextVideoFrame() override;
 
 	virtual avideo_size getVideoFrameIndex() override;
 	virtual avideo_size getVideoFrameWidth() override;

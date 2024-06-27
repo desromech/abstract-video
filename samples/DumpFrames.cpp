@@ -79,10 +79,16 @@ public:
             printf("Audio stream channels: %d sampleRate: %d\n", container->getAudioStreamChannels(), container->getAudioStreamSampleRate());
         }
 
-        //container->seekTime(20.0);
-        while(avideoContainerFetchAndDecodeNextFrame(container.get()) == AVIDEO_OK)
+        container->seekTime(20.0);
+        bool hasGottenFrame = false;
+        while(avideoContainerFetchAndDecodeNextPacket(container.get()) == AVIDEO_OK && !hasGottenFrame)
         {
-            printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
+            while(avideoContainerFetchAndDecodeNextVideoFrame(container.get()) == AVIDEO_OK)
+            {
+                printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
+
+                hasGottenFrame = true;
+            }
         }
 
         return 0;

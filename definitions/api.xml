@@ -75,7 +75,8 @@
             <constant name="Unimplemented" value="-7" />
             <constant name="NotCurrentContext" value="-8" />
             <constant name="OutOfMemory" value="-9" />
-            <constant name="EndOfStream" value="-10" />
+            <constant name="Again" value="-10" />
+            <constant name="EndOfStream" value="-11" />
         </enum>
     </constants>
 
@@ -145,7 +146,10 @@
             <method name="getVideoStreamFrameRate" cname="ContainerGetVideoStreamFrameRate" returnType="float">
             </method>
 
-            <method name="fetchAndDecodeNextFrame" cname="ContainerFetchAndDecodeNextFrame" returnType="error" errorIsNotException="true">
+            <method name="fetchAndDecodeNextPacket" cname="ContainerFetchAndDecodeNextPacket" returnType="error" errorIsNotException="true">
+            </method>
+
+            <method name="fetchAndDecodeNextVideoFrame" cname="ContainerFetchAndDecodeNextVideoFrame" returnType="error" errorIsNotException="true">
             </method>
 
             <method name="getVideoFrameIndex" cname="ContainerGetVideoFrameIndex" returnType="size">

@@ -82,9 +82,16 @@ AVIDEOContainer >> getVideoStreamFrameRate [
 ]
 
 { #category : #'wrappers' }
-AVIDEOContainer >> fetchAndDecodeNextFrame [
+AVIDEOContainer >> fetchAndDecodeNextPacket [
 	| resultValue_ |
-	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextFrame_container: (self validHandle).
+	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextPacket_container: (self validHandle).
+	self checkErrorCode: resultValue_
+]
+
+{ #category : #'wrappers' }
+AVIDEOContainer >> fetchAndDecodeNextVideoFrame [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextVideoFrame_container: (self validHandle).
 	self checkErrorCode: resultValue_
 ]
 

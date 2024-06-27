@@ -55,7 +55,8 @@ typedef enum {
 	AVIDEO_UNIMPLEMENTED = -7,
 	AVIDEO_NOT_CURRENT_CONTEXT = -8,
 	AVIDEO_OUT_OF_MEMORY = -9,
-	AVIDEO_END_OF_STREAM = -10,
+	AVIDEO_AGAIN = -10,
+	AVIDEO_END_OF_STREAM = -11,
 } avideo_error;
 
 
@@ -96,7 +97,8 @@ typedef avideo_size (*avideoContainerGetVideoStreamWidth_FUN) (avideo_container*
 typedef avideo_size (*avideoContainerGetVideoStreamHeight_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoStreamFrameCount_FUN) (avideo_container* container);
 typedef avideo_float (*avideoContainerGetVideoStreamFrameRate_FUN) (avideo_container* container);
-typedef avideo_error (*avideoContainerFetchAndDecodeNextFrame_FUN) (avideo_container* container);
+typedef avideo_error (*avideoContainerFetchAndDecodeNextPacket_FUN) (avideo_container* container);
+typedef avideo_error (*avideoContainerFetchAndDecodeNextVideoFrame_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoFrameIndex_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoFrameWidth_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoFrameHeight_FUN) (avideo_container* container);
@@ -115,7 +117,8 @@ AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamWidth(avideo_container* c
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamHeight(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoStreamFrameCount(avideo_container* container);
 AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_container* container);
-AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextFrame(avideo_container* container);
+AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextPacket(avideo_container* container);
+AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextVideoFrame(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameIndex(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameWidth(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameHeight(avideo_container* container);
@@ -143,7 +146,8 @@ typedef struct _avideo_icd_dispatch {
 	avideoContainerGetVideoStreamHeight_FUN avideoContainerGetVideoStreamHeight;
 	avideoContainerGetVideoStreamFrameCount_FUN avideoContainerGetVideoStreamFrameCount;
 	avideoContainerGetVideoStreamFrameRate_FUN avideoContainerGetVideoStreamFrameRate;
-	avideoContainerFetchAndDecodeNextFrame_FUN avideoContainerFetchAndDecodeNextFrame;
+	avideoContainerFetchAndDecodeNextPacket_FUN avideoContainerFetchAndDecodeNextPacket;
+	avideoContainerFetchAndDecodeNextVideoFrame_FUN avideoContainerFetchAndDecodeNextVideoFrame;
 	avideoContainerGetVideoFrameIndex_FUN avideoContainerGetVideoFrameIndex;
 	avideoContainerGetVideoFrameWidth_FUN avideoContainerGetVideoFrameWidth;
 	avideoContainerGetVideoFrameHeight_FUN avideoContainerGetVideoFrameHeight;

@@ -89,8 +89,13 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> fetchAndDecodeNextFrame_container: container [
-	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextFrame (avideo_container* container) )
+AVIDEOCBindings >> fetchAndDecodeNextPacket_container: container [
+	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextPacket (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> fetchAndDecodeNextVideoFrame_container: container [
+	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextVideoFrame (avideo_container* container) )
 ]
 
 { #category : #'container' }

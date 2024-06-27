@@ -286,9 +286,14 @@ public:
 		return avideoContainerGetVideoStreamFrameRate(this);
 	}
 
-	inline void fetchAndDecodeNextFrame()
+	inline void fetchAndDecodeNextPacket()
 	{
-		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextFrame(this));
+		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextPacket(this));
+	}
+
+	inline void fetchAndDecodeNextVideoFrame()
+	{
+		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextVideoFrame(this));
 	}
 
 	inline avideo_size getVideoFrameIndex()

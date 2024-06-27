@@ -107,10 +107,16 @@ AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_contain
 	return asRef(avideo::container, self)->getVideoStreamFrameRate();
 }
 
-AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextFrame(avideo_container* self)
+AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextPacket(avideo_container* self)
 {
 	if(!self) return AVIDEO_NULL_POINTER;
-	return asRef(avideo::container, self)->fetchAndDecodeNextFrame();
+	return asRef(avideo::container, self)->fetchAndDecodeNextPacket();
+}
+
+AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextVideoFrame(avideo_container* self)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->fetchAndDecodeNextVideoFrame();
 }
 
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameIndex(avideo_container* self)
