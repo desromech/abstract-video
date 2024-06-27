@@ -36,13 +36,21 @@ bool AVCodecStream::initializeWithURL(const char *url)
         if(!decoder)
             continue;
 
-        if(localCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO)
+        if(!hasVideoStream && localCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO)
         {
-            printf("Video stream %d: %dx%d\n", i, localCodecParameters->width, localCodecParameters->height);
+            hasVideoStream = true;
+            videoStreamIndex = i;
+            videoStreamWidth = localCodecParameters->width;
+            videoStreamHeight = localCodecParameters->height;
+            videoCodec = decoder;
         }
-        else if(localCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO)
+        else if(!hasAudioStream && localCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO)
         {
-            printf("Audio stream %d: channels %d sample rate %d\n", i, localCodecParameters->ch_layout.nb_channels, localCodecParameters->sample_rate);
+            hasAudioStream = true;
+            audioStreamIndex = i;
+            audioStreamChannels = localCodecParameters->channels;
+            audioStreamSampleRate = localCodecParameters->sample_rate;
+            audioCodec = decoder;
         }
     }
 

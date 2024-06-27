@@ -1,6 +1,7 @@
 #include "platform.hpp"
 #include "context.hpp"
 #include <mutex>
+#include "AVIDEO/avideo_impl_dispatch.inc"
 
 namespace AvideoAVCodec
 {

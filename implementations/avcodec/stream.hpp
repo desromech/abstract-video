@@ -2,8 +2,11 @@
 #define AVIDEO_STREAM_HPP
 
 #include "common.hpp"
+
+extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+}
 
 namespace AvideoAVCodec
 {
@@ -18,6 +21,18 @@ public:
     
     bool isOpened = false;
     AVFormatContext *formatContext = nullptr;
+
+    bool hasVideoStream = false;
+    unsigned int videoStreamIndex = 0;
+    unsigned int videoStreamWidth = 0;
+    unsigned int videoStreamHeight = 0;
+    AVCodec *videoCodec = nullptr;
+
+    bool hasAudioStream = false;
+    unsigned int audioStreamIndex = 0;
+    unsigned int audioStreamChannels = 0;
+    unsigned int audioStreamSampleRate = 0;
+    AVCodec *audioCodec = nullptr;
 };
 
 } // End of namespace AvideoAVCodec
