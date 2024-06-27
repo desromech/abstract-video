@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfAbstractVideo,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfAbstractVideo
+	#name : 'BaselineOfAbstractVideo',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfAbstractVideo',
+	#package : 'BaselineOfAbstractVideo'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfAbstractVideo >> baseline: spec [
     <baseline>
 
@@ -12,7 +13,7 @@ BaselineOfAbstractVideo >> baseline: spec [
 	spec for: #squeak do: [ self baselineForSqueak: spec ].
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfAbstractVideo >> baselineForPharo: spec [
 	spec postLoadDoIt: #postLoadActionsForPharo.
 	spec
@@ -26,18 +27,12 @@ BaselineOfAbstractVideo >> baselineForPharo: spec [
 			spec requires: #(#'AbstractVideo-CorePharo' )
 		];
 		package: #'AbstractVideo-Samples' with: [
-			spec requires: #(#'AbstractVideo-Window' #'AbstractVideo-CorePharo' #'AbstractVideo-GeneratedPharo' )
-		];
-		package: #'AbstractVideo-Utility' with: [
-			spec requires: #(#'AbstractVideo-GeneratedPharo' #'AbstractVideo-CorePharo' )
-		];
-		package: #'AbstractVideo-Window' with: [
-			spec requires: #(#'AbstractVideo-GeneratedPharo' #'AbstractVideo-CorePharo' #'AbstractVideo-Utility').
+			spec requires: #(#'AbstractVideo-CorePharo' #'AbstractVideo-GeneratedPharo' )
 		]
 
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfAbstractVideo >> baselineForSqueak: spec [
 	spec postLoadDoIt: #postLoadActionsForSqueak.
 	spec
@@ -58,24 +53,17 @@ BaselineOfAbstractVideo >> baselineForSqueak: spec [
 			spec requires: #(#'AbstractVideo-CoreSqueak' )
 		];
 		package: #'AbstractVideo-Samples' with: [
-			spec requires: #(#'AbstractVideo-Window' #'AbstractVideo-CoreSqueak' #'AbstractVideo-GeneratedSqueak')
-		];
-		package: #'AbstractVideo-Utility' with: [
 			spec requires: #(#'AbstractVideo-CoreSqueak' #'AbstractVideo-GeneratedSqueak')
-		];
-		package: #'AbstractVideo-Window' with: [
-			spec requires: #(#'AbstractVideo-CoreSqueak' #'AbstractVideo-GeneratedSqueak' #'AbstractVideo-Utility').
 		]
-
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfAbstractVideo >> postLoadActionsForPharo [
 	(Smalltalk globals at: #AVIDEOCBindings) fetchLibraryInPostLoadAction.
 	(Smalltalk globals at: #AVIDEOGeneratedDoIt) initializeBindings.
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfAbstractVideo >> postLoadActionsForSqueak [
 	(Smalltalk globals at: #AVIDEOGeneratedDoIt) initializeBindings.
 ]

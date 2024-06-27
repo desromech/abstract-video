@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfAbstractVideo }
+Package { #name : 'BaselineOfAbstractVideo' }
