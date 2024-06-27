@@ -418,6 +418,10 @@ public:
 	virtual avideo_size getVideoStreamHeight() = 0;
 	virtual avideo_size getVideoStreamFrameCount() = 0;
 	virtual avideo_float getVideoStreamFrameRate() = 0;
+	virtual avideo_error fetchAndDecodeNextFrame() = 0;
+	virtual avideo_size getVideoFrameIndex() = 0;
+	virtual avideo_size getVideoFrameWidth() = 0;
+	virtual avideo_size getVideoFrameHeight() = 0;
 	virtual avideo_bool hasAudioStream() = 0;
 	virtual avideo_size getAudioStreamChannels() = 0;
 	virtual avideo_size getAudioStreamSampleRate() = 0;

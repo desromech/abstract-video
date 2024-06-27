@@ -107,6 +107,27 @@ AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_contain
 	return asRef(avideo::container, self)->getVideoStreamFrameRate();
 }
 
+AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextFrame(avideo_container* self)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->fetchAndDecodeNextFrame();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameIndex(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoFrameIndex();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameWidth(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoFrameWidth();
+}
+
+AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameHeight(avideo_container* self)
+{
+	return asRef(avideo::container, self)->getVideoFrameHeight();
+}
+
 AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* self)
 {
 	return asRef(avideo::container, self)->hasAudioStream();

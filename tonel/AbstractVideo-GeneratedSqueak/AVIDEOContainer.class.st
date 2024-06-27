@@ -82,6 +82,34 @@ AVIDEOContainer >> getVideoStreamFrameRate [
 ]
 
 { #category : #'wrappers' }
+AVIDEOContainer >> fetchAndDecodeNextFrame [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextFrame_container: (self validHandle).
+	self checkErrorCode: resultValue_
+]
+
+{ #category : #'wrappers' }
+AVIDEOContainer >> getVideoFrameIndex [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance getVideoFrameIndex_container: (self validHandle).
+	^ resultValue_
+]
+
+{ #category : #'wrappers' }
+AVIDEOContainer >> getVideoFrameWidth [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance getVideoFrameWidth_container: (self validHandle).
+	^ resultValue_
+]
+
+{ #category : #'wrappers' }
+AVIDEOContainer >> getVideoFrameHeight [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance getVideoFrameHeight_container: (self validHandle).
+	^ resultValue_
+]
+
+{ #category : #'wrappers' }
 AVIDEOContainer >> hasAudioStream [
 	| resultValue_ |
 	resultValue_ := AVIDEOCBindings uniqueInstance hasAudioStream_container: (self validHandle).

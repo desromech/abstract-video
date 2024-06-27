@@ -13,6 +13,9 @@ AVCodecContainer::~AVCodecContainer()
         avformat_close_input(&formatContext);
     else
         avformat_free_context(formatContext);
+    avcodec_free_context(&videoCodecContext);
+    av_packet_free(&containerPacket);
+    av_frame_free(&videoFrame);
 }
 
 bool AVCodecContainer::initializeWithURL(const char *url)
@@ -61,6 +64,17 @@ bool AVCodecContainer::initializeWithURL(const char *url)
         }
     }
 
+    // Prepare for video decoding.
+    if(hasVideoStream_)
+    {
+        videoCodecContext = avcodec_alloc_context3(videoCodec);
+        avcodec_parameters_to_context(videoCodecContext, formatContext->streams[videoStreamIndex]->codecpar);
+        avcodec_open2(videoCodecContext, videoCodec, nullptr);
+
+        containerPacket = av_packet_alloc();
+        videoFrame = av_frame_alloc();
+    }
+
     return true;
 }
 
@@ -76,10 +90,14 @@ avideo_double AVCodecContainer::getDuration()
 
 avideo_error AVCodecContainer::seekTime(avideo_double time)
 {
+    av_seek_frame(formatContext, -1, int64_t(time * AV_TIME_BASE), AVSEEK_FLAG_ANY);
+    avcodec_flush_buffers(videoCodecContext);
     return AVIDEO_OK;
 }
 avideo_error AVCodecContainer::seekFrame(avideo_size frame_index)
 {
+    av_seek_frame(formatContext, -1, int64_t(frame_index / videoStreamFrameRate * AV_TIME_BASE), AVSEEK_FLAG_FRAME);
+    avcodec_flush_buffers(videoCodecContext);
     return AVIDEO_OK;
 }
 
@@ -106,6 +124,39 @@ avideo_size AVCodecContainer::getVideoStreamFrameCount()
 avideo_float AVCodecContainer::getVideoStreamFrameRate()
 {
     return videoStreamFrameRate;
+}
+
+avideo_error AVCodecContainer::fetchAndDecodeNextFrame()
+{
+    bool hasReadVideoFrame = false;
+    while(av_read_frame(formatContext, containerPacket) >= 0 && !hasReadVideoFrame)
+    {
+        if(containerPacket->stream_index == int(videoStreamIndex))
+        {
+            int response = avcodec_send_packet(videoCodecContext, containerPacket);
+            avcodec_receive_frame(videoCodecContext, videoFrame);
+            hasReadVideoFrame = true;
+        }
+
+        av_packet_unref(containerPacket);
+    }
+
+    return hasReadVideoFrame ? AVIDEO_OK : AVIDEO_END_OF_STREAM;
+}
+
+avideo_size AVCodecContainer::getVideoFrameIndex()
+{
+    return videoCodecContext ? videoCodecContext->frame_number : 0;
+}
+
+avideo_size AVCodecContainer::getVideoFrameWidth()
+{
+    return videoFrame ? videoFrame->width : 0;
+}
+
+avideo_size AVCodecContainer::getVideoFrameHeight()
+{
+    return videoFrame ? videoFrame->height : 0;
 }
 
 avideo_bool AVCodecContainer::hasAudioStream()

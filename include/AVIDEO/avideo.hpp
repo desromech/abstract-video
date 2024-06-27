@@ -286,6 +286,26 @@ public:
 		return avideoContainerGetVideoStreamFrameRate(this);
 	}
 
+	inline void fetchAndDecodeNextFrame()
+	{
+		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextFrame(this));
+	}
+
+	inline avideo_size getVideoFrameIndex()
+	{
+		return avideoContainerGetVideoFrameIndex(this);
+	}
+
+	inline avideo_size getVideoFrameWidth()
+	{
+		return avideoContainerGetVideoFrameWidth(this);
+	}
+
+	inline avideo_size getVideoFrameHeight()
+	{
+		return avideoContainerGetVideoFrameHeight(this);
+	}
+
 	inline avideo_bool hasAudioStream()
 	{
 		return avideoContainerHasAudioStream(this);

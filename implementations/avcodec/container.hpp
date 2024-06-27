@@ -31,6 +31,12 @@ public:
 	virtual avideo_size getVideoStreamFrameCount() override;
 	virtual avideo_float getVideoStreamFrameRate() override;
 
+	virtual avideo_error fetchAndDecodeNextFrame() override;
+
+	virtual avideo_size getVideoFrameIndex() override;
+	virtual avideo_size getVideoFrameWidth() override;
+	virtual avideo_size getVideoFrameHeight() override;
+
 	virtual avideo_bool hasAudioStream() override;
 	virtual avideo_size getAudioStreamChannels() override;
 	virtual avideo_size getAudioStreamSampleRate() override;
@@ -48,6 +54,9 @@ public:
     unsigned int videoStreamFrameCount = 0;
     float videoStreamFrameRate = 1.0f;
     AVCodec *videoCodec = nullptr;
+    AVCodecContext *videoCodecContext = nullptr;
+    AVPacket *containerPacket = nullptr;
+    AVFrame *videoFrame = nullptr;
 
     bool hasAudioStream_ = false;
     unsigned int audioStreamIndex = 0;

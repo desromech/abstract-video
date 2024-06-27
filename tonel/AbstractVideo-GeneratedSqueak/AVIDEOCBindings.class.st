@@ -104,6 +104,30 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
+AVIDEOCBindings >> fetchAndDecodeNextFrame_container: container [
+	<cdecl: long 'avideoContainerFetchAndDecodeNextFrame' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameIndex_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoFrameIndex' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameWidth_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoFrameWidth' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameHeight_container: container [
+	<cdecl: ulong 'avideoContainerGetVideoFrameHeight' (void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
 AVIDEOCBindings >> hasAudioStream_container: container [
 	<cdecl: long 'avideoContainerHasAudioStream' (void*)>
 	^ self externalCallFailed

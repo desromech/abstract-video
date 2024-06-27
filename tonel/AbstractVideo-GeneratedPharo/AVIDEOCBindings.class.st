@@ -89,6 +89,26 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
+AVIDEOCBindings >> fetchAndDecodeNextFrame_container: container [
+	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextFrame (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameIndex_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoFrameIndex (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameWidth_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoFrameWidth (avideo_container* container) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> getVideoFrameHeight_container: container [
+	^ self ffiCall: #(avideo_size avideoContainerGetVideoFrameHeight (avideo_container* container) )
+]
+
+{ #category : #'container' }
 AVIDEOCBindings >> hasAudioStream_container: container [
 	^ self ffiCall: #(avideo_bool avideoContainerHasAudioStream (avideo_container* container) )
 ]

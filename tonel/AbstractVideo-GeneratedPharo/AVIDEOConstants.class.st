@@ -10,7 +10,8 @@ Class {
 		'AVIDEO_UNSUPPORTED',
 		'AVIDEO_UNIMPLEMENTED',
 		'AVIDEO_NOT_CURRENT_CONTEXT',
-		'AVIDEO_OUT_OF_MEMORY'
+		'AVIDEO_OUT_OF_MEMORY',
+		'AVIDEO_END_OF_STREAM'
 	],
 	#superclass : #SharedPool,
 	#category : 'AbstractVideo-GeneratedPharo'
@@ -42,6 +43,7 @@ AVIDEOConstants class >> data [
 		AVIDEO_UNIMPLEMENTED -7
 		AVIDEO_NOT_CURRENT_CONTEXT -8
 		AVIDEO_OUT_OF_MEMORY -9
+		AVIDEO_END_OF_STREAM -10
 	)
 ]
 

@@ -79,6 +79,12 @@ public:
             printf("Audio stream channels: %d sampleRate: %d\n", container->getAudioStreamChannels(), container->getAudioStreamSampleRate());
         }
 
+        //container->seekTime(20.0);
+        while(avideoContainerFetchAndDecodeNextFrame(container.get()) == AVIDEO_OK)
+        {
+            printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
+        }
+
         return 0;
     }
 };
