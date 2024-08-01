@@ -134,6 +134,12 @@ AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameHeight(avideo_container* s
 	return asRef(avideo::container, self)->getVideoFrameHeight();
 }
 
+AVIDEO_EXPORT avideo_error avideoContainerReadSRGB32ConvertedFrame(avideo_container* self, avideo_int pitch, avideo_pointer buffer)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->readSRGB32ConvertedFrame(pitch, buffer);
+}
+
 AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* self)
 {
 	return asRef(avideo::container, self)->hasAudioStream();

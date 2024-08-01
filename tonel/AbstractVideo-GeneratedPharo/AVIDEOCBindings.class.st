@@ -114,6 +114,11 @@ AVIDEOCBindings >> getVideoFrameHeight_container: container [
 ]
 
 { #category : #'container' }
+AVIDEOCBindings >> readSRGB32ConvertedFrame_container: container pitch: pitch buffer: buffer [
+	^ self ffiCall: #(avideo_error avideoContainerReadSRGB32ConvertedFrame (avideo_container* container , avideo_int pitch , avideo_pointer buffer) )
+]
+
+{ #category : #'container' }
 AVIDEOCBindings >> hasAudioStream_container: container [
 	^ self ffiCall: #(avideo_bool avideoContainerHasAudioStream (avideo_container* container) )
 ]

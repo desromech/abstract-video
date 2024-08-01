@@ -102,6 +102,7 @@ typedef avideo_error (*avideoContainerFetchAndDecodeNextVideoFrame_FUN) (avideo_
 typedef avideo_size (*avideoContainerGetVideoFrameIndex_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoFrameWidth_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetVideoFrameHeight_FUN) (avideo_container* container);
+typedef avideo_error (*avideoContainerReadSRGB32ConvertedFrame_FUN) (avideo_container* container, avideo_int pitch, avideo_pointer buffer);
 typedef avideo_bool (*avideoContainerHasAudioStream_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetAudioStreamChannels_FUN) (avideo_container* container);
 typedef avideo_size (*avideoContainerGetAudioStreamSampleRate_FUN) (avideo_container* container);
@@ -122,6 +123,7 @@ AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextVideoFrame(avideo_co
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameIndex(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameWidth(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameHeight(avideo_container* container);
+AVIDEO_EXPORT avideo_error avideoContainerReadSRGB32ConvertedFrame(avideo_container* container, avideo_int pitch, avideo_pointer buffer);
 AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamChannels(avideo_container* container);
 AVIDEO_EXPORT avideo_size avideoContainerGetAudioStreamSampleRate(avideo_container* container);
@@ -151,6 +153,7 @@ typedef struct _avideo_icd_dispatch {
 	avideoContainerGetVideoFrameIndex_FUN avideoContainerGetVideoFrameIndex;
 	avideoContainerGetVideoFrameWidth_FUN avideoContainerGetVideoFrameWidth;
 	avideoContainerGetVideoFrameHeight_FUN avideoContainerGetVideoFrameHeight;
+	avideoContainerReadSRGB32ConvertedFrame_FUN avideoContainerReadSRGB32ConvertedFrame;
 	avideoContainerHasAudioStream_FUN avideoContainerHasAudioStream;
 	avideoContainerGetAudioStreamChannels_FUN avideoContainerGetAudioStreamChannels;
 	avideoContainerGetAudioStreamSampleRate_FUN avideoContainerGetAudioStreamSampleRate;

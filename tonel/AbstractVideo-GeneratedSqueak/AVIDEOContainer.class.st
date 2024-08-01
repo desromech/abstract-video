@@ -117,6 +117,13 @@ AVIDEOContainer >> getVideoFrameHeight [
 ]
 
 { #category : #'wrappers' }
+AVIDEOContainer >> readSRGB32ConvertedFrame: pitch buffer: buffer [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance readSRGB32ConvertedFrame_container: (self validHandle) pitch: pitch buffer: buffer.
+	self checkErrorCode: resultValue_
+]
+
+{ #category : #'wrappers' }
 AVIDEOContainer >> hasAudioStream [
 	| resultValue_ |
 	resultValue_ := AVIDEOCBindings uniqueInstance hasAudioStream_container: (self validHandle).

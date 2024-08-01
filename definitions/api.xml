@@ -161,6 +161,11 @@
             <method name="getVideoFrameHeight" cname="ContainerGetVideoFrameHeight" returnType="size">
             </method>
 
+            <method name="readSRGB32ConvertedFrame" cname="ContainerReadSRGB32ConvertedFrame" returnType="error">
+                <arg name="pitch" type="int" />
+                <arg name="buffer" type="pointer" />
+            </method>
+
             <method name="hasAudioStream" cname="ContainerHasAudioStream" returnType="bool">
             </method>
 

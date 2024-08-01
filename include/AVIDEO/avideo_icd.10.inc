@@ -21,6 +21,7 @@ avideoContainerFetchAndDecodeNextVideoFrame,
 avideoContainerGetVideoFrameIndex,
 avideoContainerGetVideoFrameWidth,
 avideoContainerGetVideoFrameHeight,
+avideoContainerReadSRGB32ConvertedFrame,
 avideoContainerHasAudioStream,
 avideoContainerGetAudioStreamChannels,
 avideoContainerGetAudioStreamSampleRate

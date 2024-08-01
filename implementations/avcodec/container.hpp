@@ -39,6 +39,8 @@ public:
 	virtual avideo_size getVideoFrameWidth() override;
 	virtual avideo_size getVideoFrameHeight() override;
 
+	virtual avideo_error readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer) override;
+
 	virtual avideo_bool hasAudioStream() override;
 	virtual avideo_size getAudioStreamChannels() override;
 	virtual avideo_size getAudioStreamSampleRate() override;

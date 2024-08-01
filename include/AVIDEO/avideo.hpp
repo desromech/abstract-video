@@ -311,6 +311,11 @@ public:
 		return avideoContainerGetVideoFrameHeight(this);
 	}
 
+	inline void readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+	{
+		avideoThrowIfFailed(avideoContainerReadSRGB32ConvertedFrame(this, pitch, buffer));
+	}
+
 	inline avideo_bool hasAudioStream()
 	{
 		return avideoContainerHasAudioStream(this);

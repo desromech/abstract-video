@@ -134,6 +134,12 @@ AVIDEOCBindings >> getVideoFrameHeight_container: container [
 ]
 
 { #category : #'container' }
+AVIDEOCBindings >> readSRGB32ConvertedFrame_container: container pitch: pitch buffer: buffer [
+	<cdecl: long 'avideoContainerReadSRGB32ConvertedFrame' (void* long void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
 AVIDEOCBindings >> hasAudioStream_container: container [
 	<cdecl: long 'avideoContainerHasAudioStream' (void*)>
 	^ self externalCallFailed

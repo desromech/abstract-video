@@ -423,6 +423,7 @@ public:
 	virtual avideo_size getVideoFrameIndex() = 0;
 	virtual avideo_size getVideoFrameWidth() = 0;
 	virtual avideo_size getVideoFrameHeight() = 0;
+	virtual avideo_error readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer) = 0;
 	virtual avideo_bool hasAudioStream() = 0;
 	virtual avideo_size getAudioStreamChannels() = 0;
 	virtual avideo_size getAudioStreamSampleRate() = 0;

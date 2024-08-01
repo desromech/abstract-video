@@ -171,6 +171,11 @@ avideo_size AVCodecContainer::getVideoFrameHeight()
     return videoFrame ? videoFrame->height : 0;
 }
 
+avideo_error AVCodecContainer::readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+{
+    return AVIDEO_OK;
+}
+
 avideo_bool AVCodecContainer::hasAudioStream()
 {
     return hasAudioStream_;
