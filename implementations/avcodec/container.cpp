@@ -173,6 +173,19 @@ avideo_size AVCodecContainer::getVideoFrameHeight()
 
 avideo_error AVCodecContainer::readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
 {
+    if(!videoFrame)
+        return AVIDEO_NO_FRAME;
+
+    avideo_size frameWidth = videoFrame->width;
+    avideo_size frameHeight = videoFrame->height;
+
+    uint8_t *destRow = (uint8_t*)buffer;
+    for(avideo_size y = 0; y < frameHeight; ++y)
+    {
+        memset(destRow, 0, frameWidth*4);
+        destRow += pitch;
+    }
+
     return AVIDEO_OK;
 }
 

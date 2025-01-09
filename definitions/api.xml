@@ -77,6 +77,7 @@
             <constant name="OutOfMemory" value="-9" />
             <constant name="Again" value="-10" />
             <constant name="EndOfStream" value="-11" />
+            <constant name="NoFrame" value="-12" />
         </enum>
     </constants>
 

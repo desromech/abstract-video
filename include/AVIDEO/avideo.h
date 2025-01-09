@@ -57,6 +57,7 @@ typedef enum {
 	AVIDEO_OUT_OF_MEMORY = -9,
 	AVIDEO_AGAIN = -10,
 	AVIDEO_END_OF_STREAM = -11,
+	AVIDEO_NO_FRAME = -12,
 } avideo_error;
 
 
