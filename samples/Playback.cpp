@@ -138,7 +138,7 @@ public:
                 if (playbackTexture)
                     SDL_DestroyTexture(playbackTexture);
 
-                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
+                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA32, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
                 SDL_SetTextureBlendMode(playbackTexture, SDL_BLENDMODE_NONE);
             }
 

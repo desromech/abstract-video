@@ -153,23 +153,22 @@ avideo_error AVCodecContainer::fetchAndDecodeNextVideoFrame()
     {
         if(containerPacket->stream_index == int(videoStreamIndex))
         {
-            if (avcodec_send_packet(videoCodecContext, containerPacket) == AVERROR(EAGAIN))
+            if (avcodec_send_packet(videoCodecContext, containerPacket) < 0)
                 break;
+            
+            int ret = 1;
+            while(ret >= 0)
+            {
+                ret = avcodec_receive_frame(videoCodecContext, videoFrame);
+                if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF)
+                    break;
+                return AVIDEO_OK;
+            }
+
         }
 
         av_packet_unref(containerPacket);
     }
-
-
-    int response = avcodec_receive_frame(videoCodecContext, videoFrame);
-    if(response == AVERROR(EAGAIN))
-        return AVIDEO_AGAIN;
-    if(response == AVERROR_EOF)
-        return AVIDEO_END_OF_STREAM;
-    if(response < 0)
-        return AVIDEO_ERROR;
-
-    //sws_scale_frame(swsContext, convertedVideoFrame, videoFrame);
 
     return AVIDEO_OK;
 }
@@ -201,7 +200,7 @@ avideo_error AVCodecContainer::readRGBA32ConvertedFrame(avideo_int pitch, avideo
         if(convertedVideoFrame)
             av_frame_free(&convertedVideoFrame);
         convertedVideoFrame = av_frame_alloc();
-        convertedVideoFrame->format = AV_PIX_FMT_RGBA;
+        convertedVideoFrame->format = AV_PIX_FMT_BGRA;
         convertedVideoFrame->width = videoFrame->width;
         convertedVideoFrame->height = videoFrame->height;
         av_frame_get_buffer(convertedVideoFrame, 0);
