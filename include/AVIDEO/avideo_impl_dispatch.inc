@@ -107,12 +107,6 @@ AVIDEO_EXPORT avideo_float avideoContainerGetVideoStreamFrameRate(avideo_contain
 	return asRef(avideo::container, self)->getVideoStreamFrameRate();
 }
 
-AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextPacket(avideo_container* self)
-{
-	if(!self) return AVIDEO_NULL_POINTER;
-	return asRef(avideo::container, self)->fetchAndDecodeNextPacket();
-}
-
 AVIDEO_EXPORT avideo_error avideoContainerFetchAndDecodeNextVideoFrame(avideo_container* self)
 {
 	if(!self) return AVIDEO_NULL_POINTER;
@@ -134,10 +128,16 @@ AVIDEO_EXPORT avideo_size avideoContainerGetVideoFrameHeight(avideo_container* s
 	return asRef(avideo::container, self)->getVideoFrameHeight();
 }
 
-AVIDEO_EXPORT avideo_error avideoContainerReadSRGB32ConvertedFrame(avideo_container* self, avideo_int pitch, avideo_pointer buffer)
+AVIDEO_EXPORT avideo_error avideoContainerReadYUVConvertedFrame(avideo_container* self, avideo_int planeIndex, avideo_int pitch, avideo_pointer buffer)
 {
 	if(!self) return AVIDEO_NULL_POINTER;
-	return asRef(avideo::container, self)->readSRGB32ConvertedFrame(pitch, buffer);
+	return asRef(avideo::container, self)->readYUVFrame(planeIndex, pitch, buffer);
+}
+
+AVIDEO_EXPORT avideo_error avideoContainerReadRGBA32ConvertedFrame(avideo_container* self, avideo_int pitch, avideo_pointer buffer)
+{
+	if(!self) return AVIDEO_NULL_POINTER;
+	return asRef(avideo::container, self)->readRGBA32ConvertedFrame(pitch, buffer);
 }
 
 AVIDEO_EXPORT avideo_bool avideoContainerHasAudioStream(avideo_container* self)

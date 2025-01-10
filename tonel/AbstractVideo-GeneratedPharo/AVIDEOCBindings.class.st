@@ -89,11 +89,6 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> fetchAndDecodeNextPacket_container: container [
-	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextPacket (avideo_container* container) )
-]
-
-{ #category : #'container' }
 AVIDEOCBindings >> fetchAndDecodeNextVideoFrame_container: container [
 	^ self ffiCall: #(avideo_error avideoContainerFetchAndDecodeNextVideoFrame (avideo_container* container) )
 ]
@@ -114,8 +109,13 @@ AVIDEOCBindings >> getVideoFrameHeight_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> readSRGB32ConvertedFrame_container: container pitch: pitch buffer: buffer [
-	^ self ffiCall: #(avideo_error avideoContainerReadSRGB32ConvertedFrame (avideo_container* container , avideo_int pitch , avideo_pointer buffer) )
+AVIDEOCBindings >> readYUVFrame_container: container planeIndex: planeIndex pitch: pitch buffer: buffer [
+	^ self ffiCall: #(avideo_error avideoContainerReadYUVConvertedFrame (avideo_container* container , avideo_int planeIndex , avideo_int pitch , avideo_pointer buffer) )
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> readRGBA32ConvertedFrame_container: container pitch: pitch buffer: buffer [
+	^ self ffiCall: #(avideo_error avideoContainerReadRGBA32ConvertedFrame (avideo_container* container , avideo_int pitch , avideo_pointer buffer) )
 ]
 
 { #category : #'container' }

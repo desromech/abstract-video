@@ -82,13 +82,6 @@ AVIDEOContainer >> getVideoStreamFrameRate [
 ]
 
 { #category : #'wrappers' }
-AVIDEOContainer >> fetchAndDecodeNextPacket [
-	| resultValue_ |
-	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextPacket_container: (self validHandle).
-	self checkErrorCode: resultValue_
-]
-
-{ #category : #'wrappers' }
 AVIDEOContainer >> fetchAndDecodeNextVideoFrame [
 	| resultValue_ |
 	resultValue_ := AVIDEOCBindings uniqueInstance fetchAndDecodeNextVideoFrame_container: (self validHandle).
@@ -117,9 +110,16 @@ AVIDEOContainer >> getVideoFrameHeight [
 ]
 
 { #category : #'wrappers' }
-AVIDEOContainer >> readSRGB32ConvertedFrame: pitch buffer: buffer [
+AVIDEOContainer >> readYUVFrame: planeIndex pitch: pitch buffer: buffer [
 	| resultValue_ |
-	resultValue_ := AVIDEOCBindings uniqueInstance readSRGB32ConvertedFrame_container: (self validHandle) pitch: pitch buffer: buffer.
+	resultValue_ := AVIDEOCBindings uniqueInstance readYUVFrame_container: (self validHandle) planeIndex: planeIndex pitch: pitch buffer: buffer.
+	self checkErrorCode: resultValue_
+]
+
+{ #category : #'wrappers' }
+AVIDEOContainer >> readRGBA32ConvertedFrame: pitch buffer: buffer [
+	| resultValue_ |
+	resultValue_ := AVIDEOCBindings uniqueInstance readRGBA32ConvertedFrame_container: (self validHandle) pitch: pitch buffer: buffer.
 	self checkErrorCode: resultValue_
 ]
 

@@ -147,9 +147,6 @@
             <method name="getVideoStreamFrameRate" cname="ContainerGetVideoStreamFrameRate" returnType="float">
             </method>
 
-            <method name="fetchAndDecodeNextPacket" cname="ContainerFetchAndDecodeNextPacket" returnType="error" errorIsNotException="true">
-            </method>
-
             <method name="fetchAndDecodeNextVideoFrame" cname="ContainerFetchAndDecodeNextVideoFrame" returnType="error" errorIsNotException="true">
             </method>
 
@@ -162,7 +159,13 @@
             <method name="getVideoFrameHeight" cname="ContainerGetVideoFrameHeight" returnType="size">
             </method>
 
-            <method name="readSRGB32ConvertedFrame" cname="ContainerReadSRGB32ConvertedFrame" returnType="error">
+            <method name="readYUVFrame" cname="ContainerReadYUVConvertedFrame" returnType="error">
+                <arg name="planeIndex" type="int" />
+                <arg name="pitch" type="int" />
+                <arg name="buffer" type="pointer" />
+            </method>
+
+            <method name="readRGBA32ConvertedFrame" cname="ContainerReadRGBA32ConvertedFrame" returnType="error">
                 <arg name="pitch" type="int" />
                 <arg name="buffer" type="pointer" />
             </method>

@@ -120,22 +120,13 @@ public:
             int videoFrameWidth = container->getVideoFrameWidth();
             int videoFrameHeight = container->getVideoFrameHeight();
 
-            while (avideoContainerFetchAndDecodeNextPacket(container.get()) == AVIDEO_OK && !hasGottenFrame)
-            {
-                avideo_error videoDecodeError = avideoContainerFetchAndDecodeNextVideoFrame(container.get());
-                while(videoDecodeError == AVIDEO_AGAIN)
-                {
-                    avideoContainerFetchAndDecodeNextPacket(container.get());
-                    videoDecodeError = avideoContainerFetchAndDecodeNextVideoFrame(container.get());
-                }
-
-                if (videoDecodeError == AVIDEO_OK)
-                {                        
-                    printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
-                    videoFrameWidth = container->getVideoFrameWidth();
-                    videoFrameHeight = container->getVideoFrameHeight();
-                    hasGottenFrame = true;
-                }
+            avideo_error videoDecodeError = avideoContainerFetchAndDecodeNextVideoFrame(container.get());
+            if (videoDecodeError == AVIDEO_OK)
+            {                        
+                printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
+                videoFrameWidth = container->getVideoFrameWidth();
+                videoFrameHeight = container->getVideoFrameHeight();
+                hasGottenFrame = true;
             }
 
             // ensure the texture has the correct size.
@@ -147,7 +138,7 @@ public:
                 if (playbackTexture)
                     SDL_DestroyTexture(playbackTexture);
 
-                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA8888, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
+                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
                 SDL_SetTextureBlendMode(playbackTexture, SDL_BLENDMODE_NONE);
             }
 
@@ -158,15 +149,15 @@ public:
                     void *pixels;
                     int pitch;
                     SDL_LockTexture(playbackTexture, nullptr, &pixels, &pitch);
-                    container->readSRGB32ConvertedFrame(pitch, pixels);
+                    container->readRGBA32ConvertedFrame(pitch, pixels);
                     SDL_UnlockTexture(playbackTexture);
-
-                    SDL_RenderCopy(renderer, playbackTexture, nullptr, nullptr);
-                    SDL_RenderPresent(renderer);
                 }
+
+                SDL_RenderCopy(renderer, playbackTexture, nullptr, nullptr);
+                SDL_RenderPresent(renderer);
             }
 
-            SDL_Delay(1000 / 30);
+            SDL_Delay(1000 / 60);
         }
 
         SDL_DestroyRenderer(renderer);

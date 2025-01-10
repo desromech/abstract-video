@@ -81,14 +81,11 @@ public:
 
         container->seekTime(20.0);
         bool hasGottenFrame = false;
-        while(avideoContainerFetchAndDecodeNextPacket(container.get()) == AVIDEO_OK && !hasGottenFrame)
+        if(avideoContainerFetchAndDecodeNextVideoFrame(container.get()) == AVIDEO_OK)
         {
-            while(avideoContainerFetchAndDecodeNextVideoFrame(container.get()) == AVIDEO_OK)
-            {
-                printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
+            printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
 
-                hasGottenFrame = true;
-            }
+            hasGottenFrame = true;
         }
 
         return 0;

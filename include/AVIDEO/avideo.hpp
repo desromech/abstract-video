@@ -286,11 +286,6 @@ public:
 		return avideoContainerGetVideoStreamFrameRate(this);
 	}
 
-	inline void fetchAndDecodeNextPacket()
-	{
-		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextPacket(this));
-	}
-
 	inline void fetchAndDecodeNextVideoFrame()
 	{
 		avideoThrowIfFailed(avideoContainerFetchAndDecodeNextVideoFrame(this));
@@ -311,9 +306,14 @@ public:
 		return avideoContainerGetVideoFrameHeight(this);
 	}
 
-	inline void readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+	inline void readYUVFrame(avideo_int planeIndex, avideo_int pitch, avideo_pointer buffer)
 	{
-		avideoThrowIfFailed(avideoContainerReadSRGB32ConvertedFrame(this, pitch, buffer));
+		avideoThrowIfFailed(avideoContainerReadYUVConvertedFrame(this, planeIndex, pitch, buffer));
+	}
+
+	inline void readRGBA32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+	{
+		avideoThrowIfFailed(avideoContainerReadRGBA32ConvertedFrame(this, pitch, buffer));
 	}
 
 	inline avideo_bool hasAudioStream()

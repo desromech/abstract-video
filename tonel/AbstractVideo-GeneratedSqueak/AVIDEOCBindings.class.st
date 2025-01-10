@@ -104,12 +104,6 @@ AVIDEOCBindings >> getVideoStreamFrameRate_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> fetchAndDecodeNextPacket_container: container [
-	<cdecl: long 'avideoContainerFetchAndDecodeNextPacket' (void*)>
-	^ self externalCallFailed
-]
-
-{ #category : #'container' }
 AVIDEOCBindings >> fetchAndDecodeNextVideoFrame_container: container [
 	<cdecl: long 'avideoContainerFetchAndDecodeNextVideoFrame' (void*)>
 	^ self externalCallFailed
@@ -134,8 +128,14 @@ AVIDEOCBindings >> getVideoFrameHeight_container: container [
 ]
 
 { #category : #'container' }
-AVIDEOCBindings >> readSRGB32ConvertedFrame_container: container pitch: pitch buffer: buffer [
-	<cdecl: long 'avideoContainerReadSRGB32ConvertedFrame' (void* long void*)>
+AVIDEOCBindings >> readYUVFrame_container: container planeIndex: planeIndex pitch: pitch buffer: buffer [
+	<cdecl: long 'avideoContainerReadYUVConvertedFrame' (void* long long void*)>
+	^ self externalCallFailed
+]
+
+{ #category : #'container' }
+AVIDEOCBindings >> readRGBA32ConvertedFrame_container: container pitch: pitch buffer: buffer [
+	<cdecl: long 'avideoContainerReadRGBA32ConvertedFrame' (void* long void*)>
 	^ self externalCallFailed
 ]
 

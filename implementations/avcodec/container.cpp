@@ -126,14 +126,16 @@ avideo_float AVCodecContainer::getVideoStreamFrameRate()
     return videoStreamFrameRate;
 }
 
+/*
 avideo_error AVCodecContainer::fetchAndDecodeNextPacket()
 {
     bool hasReadVideoPacket = false;
-    while(av_read_frame(formatContext, containerPacket) >= 0 && !hasReadVideoPacket)
+    while((av_read_frame(formatContext, containerPacket) >= 0) & !hasReadVideoPacket)
     {
         if(containerPacket->stream_index == int(videoStreamIndex))
         {
             avcodec_send_packet(videoCodecContext, containerPacket);
+
             hasReadVideoPacket = true;
         }
 
@@ -143,39 +145,30 @@ avideo_error AVCodecContainer::fetchAndDecodeNextPacket()
     return hasReadVideoPacket ? AVIDEO_OK : AVIDEO_END_OF_STREAM;
 
 }
+*/
 
 avideo_error AVCodecContainer::fetchAndDecodeNextVideoFrame()
 {
+    while((av_read_frame(formatContext, containerPacket) >= 0))
+    {
+        if(containerPacket->stream_index == int(videoStreamIndex))
+        {
+            if (avcodec_send_packet(videoCodecContext, containerPacket) == AVERROR(EAGAIN))
+                break;
+        }
+
+        av_packet_unref(containerPacket);
+    }
+
+
     int response = avcodec_receive_frame(videoCodecContext, videoFrame);
     if(response == AVERROR(EAGAIN))
         return AVIDEO_AGAIN;
-
     if(response == AVERROR_EOF)
         return AVIDEO_END_OF_STREAM;
-
     if(response < 0)
         return AVIDEO_ERROR;
 
-    if(!convertedVideoFrame || convertedVideoFrame->width != videoFrame->width || convertedVideoFrame->height != videoFrame->height)
-    {
-        if(convertedVideoFrame)
-            av_frame_free(&convertedVideoFrame);
-        convertedVideoFrame = av_frame_alloc();
-        convertedVideoFrame->format = AV_PIX_FMT_RGBA;
-        convertedVideoFrame->width = videoFrame->width;
-        convertedVideoFrame->height = videoFrame->height;
-        av_frame_get_buffer(convertedVideoFrame, 0);
-    } 
-    if(!swsContext)
-    {
-        swsContext = sws_getContext(
-        videoFrame->width, videoFrame->height, AVPixelFormat(videoFrame->format),
-        convertedVideoFrame->width, convertedVideoFrame->height, AVPixelFormat(convertedVideoFrame->format),
-        SWS_BILINEAR, nullptr, nullptr, 0);
-    }
-
-    sws_scale(swsContext, videoFrame->data, videoFrame->linesize, 0,
-        videoFrame->height, convertedVideoFrame->data, convertedVideoFrame->linesize);
     //sws_scale_frame(swsContext, convertedVideoFrame, videoFrame);
 
     return AVIDEO_OK;
@@ -196,10 +189,34 @@ avideo_size AVCodecContainer::getVideoFrameHeight()
     return videoFrame ? videoFrame->height : 0;
 }
 
-avideo_error AVCodecContainer::readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+avideo_error AVCodecContainer::readYUVFrame(avideo_int planeIndex, avideo_int pitch, avideo_pointer buffer)
 {
-    if(!videoFrame)
-        return AVIDEO_NO_FRAME;
+    return AVIDEO_NO_FRAME;
+}
+
+avideo_error AVCodecContainer::readRGBA32ConvertedFrame(avideo_int pitch, avideo_pointer buffer)
+{
+    if(!convertedVideoFrame || convertedVideoFrame->width != videoFrame->width || convertedVideoFrame->height != videoFrame->height)
+    {
+        if(convertedVideoFrame)
+            av_frame_free(&convertedVideoFrame);
+        convertedVideoFrame = av_frame_alloc();
+        convertedVideoFrame->format = AV_PIX_FMT_RGBA;
+        convertedVideoFrame->width = videoFrame->width;
+        convertedVideoFrame->height = videoFrame->height;
+        av_frame_get_buffer(convertedVideoFrame, 0);
+    } 
+
+    if(!swsContext)
+    {
+        swsContext = sws_getContext(
+        videoFrame->width, videoFrame->height, AVPixelFormat(videoFrame->format),
+        convertedVideoFrame->width, convertedVideoFrame->height, AVPixelFormat(convertedVideoFrame->format),
+        SWS_FAST_BILINEAR, nullptr, nullptr, 0);
+    }
+
+    sws_scale(swsContext, videoFrame->data, videoFrame->linesize, 0,
+        videoFrame->height, convertedVideoFrame->data, convertedVideoFrame->linesize);
 
     avideo_size frameWidth = convertedVideoFrame->width;
     avideo_size frameHeight = convertedVideoFrame->height;

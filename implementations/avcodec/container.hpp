@@ -32,14 +32,14 @@ public:
 	virtual avideo_size getVideoStreamFrameCount() override;
 	virtual avideo_float getVideoStreamFrameRate() override;
 
-	virtual avideo_error fetchAndDecodeNextPacket() override;
 	virtual avideo_error fetchAndDecodeNextVideoFrame() override;
 
 	virtual avideo_size getVideoFrameIndex() override;
 	virtual avideo_size getVideoFrameWidth() override;
 	virtual avideo_size getVideoFrameHeight() override;
 
-	virtual avideo_error readSRGB32ConvertedFrame(avideo_int pitch, avideo_pointer buffer) override;
+	virtual avideo_error readYUVFrame(avideo_int planeIndex, avideo_int pitch, avideo_pointer buffer) override;
+	virtual avideo_error readRGBA32ConvertedFrame(avideo_int pitch, avideo_pointer buffer) override;
 
 	virtual avideo_bool hasAudioStream() override;
 	virtual avideo_size getAudioStreamChannels() override;
