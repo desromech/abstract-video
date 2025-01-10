@@ -171,7 +171,7 @@ avideo_error AVCodecContainer::fetchAndDecodeNextVideoFrame()
         swsContext = sws_getContext(
         videoFrame->width, videoFrame->height, AVPixelFormat(videoFrame->format),
         convertedVideoFrame->width, convertedVideoFrame->height, AVPixelFormat(convertedVideoFrame->format),
-        SWS_FAST_BILINEAR, nullptr, nullptr, 0);
+        SWS_BILINEAR, nullptr, nullptr, 0);
     }
 
     sws_scale(swsContext, videoFrame->data, videoFrame->linesize, 0,

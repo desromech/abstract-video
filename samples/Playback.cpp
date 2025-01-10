@@ -24,12 +24,12 @@ public:
     void processEvents()
     {
         SDL_Event event;
-        while(SDL_PollEvent(&event))
+        while (SDL_PollEvent(&event))
         {
-            switch(event.type)
+            switch (event.type)
             {
             case SDL_KEYDOWN:
-                if(event.key.keysym.sym == SDLK_ESCAPE)
+                if (event.key.keysym.sym == SDLK_ESCAPE)
                     isQuiting = true;
                 break;
             case SDL_QUIT:
@@ -43,9 +43,9 @@ public:
     {
         std::string url;
 
-        for(int i = 1; i < argc; ++i)
+        for (int i = 1; i < argc; ++i)
         {
-            if(!strcmp(argv[i], "-h"))
+            if (!strcmp(argv[i], "-h"))
             {
                 printHelp();
                 return 0;
@@ -56,7 +56,7 @@ public:
             }
         }
 
-        if(url.empty())
+        if (url.empty())
         {
             printHelp();
             return 0;
@@ -65,7 +65,7 @@ public:
         // Get the platform.
         avideo_size platformCount = 0;
         avideoGetPlatforms(0, nullptr, &platformCount);
-        if(!platformCount)
+        if (!platformCount)
         {
             fprintf(stderr, "No avideo platform is available.\n");
             return 1;
@@ -77,15 +77,15 @@ public:
         // Create the context
         avideo_context_open_info contextOpenInfo = {};
         context = platform->openContext(&contextOpenInfo);
-        if(!context)
+        if (!context)
         {
             fprintf(stderr, "Failed to open the avideo context.\n");
             return 1;
         }
-        
+
         // Open the stream
         container = context->openContainerWithURL(url.c_str());
-        if(!container)
+        if (!container)
         {
             fprintf(stderr, "Failed to open an avideo stream.\n");
             return 1;
@@ -93,12 +93,12 @@ public:
 
         printf("Opened container with start time: %f duration: %f\n", container->getStartTime(), container->getDuration());
 
-        if(container->hasVideoStream())
+        if (container->hasVideoStream())
         {
             printf("Video stream width: %d height: %d fps: %f frames: %d\n", container->getVideoStreamWidth(), container->getVideoStreamHeight(), container->getVideoStreamFrameRate(), container->getVideoStreamFrameCount());
         }
 
-        if(container->hasAudioStream())
+        if (container->hasAudioStream())
         {
             printf("Audio stream channels: %d sampleRate: %d\n", container->getAudioStreamChannels(), container->getAudioStreamSampleRate());
         }
@@ -111,7 +111,7 @@ public:
         SDL_RenderPresent(renderer);
         container->seekTime(0.0);
 
-        while(!isQuiting)
+        while (!isQuiting)
         {
             processEvents();
             bool hasGottenFrame = false;
@@ -120,10 +120,17 @@ public:
             int videoFrameWidth = container->getVideoFrameWidth();
             int videoFrameHeight = container->getVideoFrameHeight();
 
-            while(avideoContainerFetchAndDecodeNextPacket(container.get()) == AVIDEO_OK && !hasGottenFrame)
+            while (avideoContainerFetchAndDecodeNextPacket(container.get()) == AVIDEO_OK && !hasGottenFrame)
             {
-                while(avideoContainerFetchAndDecodeNextVideoFrame(container.get()) == AVIDEO_OK)
+                avideo_error videoDecodeError = avideoContainerFetchAndDecodeNextVideoFrame(container.get());
+                while(videoDecodeError == AVIDEO_AGAIN)
                 {
+                    avideoContainerFetchAndDecodeNextPacket(container.get());
+                    videoDecodeError = avideoContainerFetchAndDecodeNextVideoFrame(container.get());
+                }
+
+                if (videoDecodeError == AVIDEO_OK)
+                {                        
                     printf("Frame %d width %d height %d\n", container->getVideoFrameIndex(), container->getVideoFrameWidth(), container->getVideoFrameHeight());
                     videoFrameWidth = container->getVideoFrameWidth();
                     videoFrameHeight = container->getVideoFrameHeight();
@@ -132,21 +139,21 @@ public:
             }
 
             // ensure the texture has the correct size.
-            if(textureFrameWidth != videoFrameWidth || textureFrameHeight != videoFrameHeight)
+            if (textureFrameWidth != videoFrameWidth || textureFrameHeight != videoFrameHeight)
             {
                 textureFrameWidth = videoFrameWidth;
                 textureFrameHeight = videoFrameHeight;
 
-                if(playbackTexture)
+                if (playbackTexture)
                     SDL_DestroyTexture(playbackTexture);
 
-                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
+                playbackTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA8888, SDL_TEXTUREACCESS_STREAMING, textureFrameWidth, textureFrameHeight);
                 SDL_SetTextureBlendMode(playbackTexture, SDL_BLENDMODE_NONE);
             }
 
-            if(playbackTexture)
+            if (playbackTexture)
             {
-                if(hasGottenFrame)
+                if (hasGottenFrame)
                 {
                     void *pixels;
                     int pitch;
@@ -156,11 +163,10 @@ public:
 
                     SDL_RenderCopy(renderer, playbackTexture, nullptr, nullptr);
                     SDL_RenderPresent(renderer);
-
                 }
             }
 
-            SDL_Delay(1000/60);
+            SDL_Delay(1000 / 30);
         }
 
         SDL_DestroyRenderer(renderer);
