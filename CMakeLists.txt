@@ -45,8 +45,8 @@ endif()
 include_directories(
 .
 include
-#${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg
-#${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg
+{CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg
+{CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg
 )
 
 # Set output dir.
@@ -67,11 +67,11 @@ set(AVIDEO_MAIN_LIB Avideo)
 set(AVIDEO_SAMPLES_LIBS ${AVIDEO_SAMPLES_LIBS} ${SDL2_LIBRARIES} ${AVIDEO_MAIN_LIB})
 
 # Build the thirdparty dependencies
-#add_subdirectory(thirdparty)
+add_subdirectory(thirdparty)
 
 # Build the implementations
 add_subdirectory(implementations)
 
-if(AVIDEO_BUILD_SAMPLES)
+#if(AVIDEO_BUILD_SAMPLES)
 	add_subdirectory(samples)
-endif()
+#endif()
