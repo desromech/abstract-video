@@ -40,13 +40,18 @@ if( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
   list( APPEND COMPILER_FLAGS -Wl,-no-undefined ) 
 endif() 
 
+# Build the thirdparty dependencies
+add_subdirectory(thirdparty)
 
 # Add some include directories
 include_directories(
-.
-include
-{CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg
-{CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg
+	.
+	include
+	${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/include
+)
+
+link_directories(
+	${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/lib
 )
 
 # Set output dir.
@@ -66,8 +71,6 @@ endforeach()
 set(AVIDEO_MAIN_LIB Avideo)
 set(AVIDEO_SAMPLES_LIBS ${AVIDEO_SAMPLES_LIBS} ${SDL2_LIBRARIES} ${AVIDEO_MAIN_LIB})
 
-# Build the thirdparty dependencies
-add_subdirectory(thirdparty)
 
 # Build the implementations
 add_subdirectory(implementations)

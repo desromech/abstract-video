@@ -6,6 +6,7 @@
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
 }
 
 namespace AvideoAVCodec
@@ -56,16 +57,18 @@ public:
     unsigned int videoStreamHeight = 0;
     unsigned int videoStreamFrameCount = 0;
     float videoStreamFrameRate = 1.0f;
-    AVCodec *videoCodec = nullptr;
+    const AVCodec *videoCodec = nullptr;
     AVCodecContext *videoCodecContext = nullptr;
     AVPacket *containerPacket = nullptr;
     AVFrame *videoFrame = nullptr;
+    AVFrame *convertedVideoFrame = nullptr;
+    SwsContext *swsContext = nullptr;
 
     bool hasAudioStream_ = false;
     unsigned int audioStreamIndex = 0;
     unsigned int audioStreamChannels = 0;
     unsigned int audioStreamSampleRate = 0;
-    AVCodec *audioCodec = nullptr;
+    const AVCodec *audioCodec = nullptr;
 };
 
 } // End of namespace AvideoAVCodec

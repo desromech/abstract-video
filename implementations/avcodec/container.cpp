@@ -58,7 +58,7 @@ bool AVCodecContainer::initializeWithURL(const char *url)
         {
             hasAudioStream_ = true;
             audioStreamIndex = i;
-            audioStreamChannels = localCodecParameters->channels;
+            audioStreamChannels = localCodecParameters->ch_layout.nb_channels;
             audioStreamSampleRate = localCodecParameters->sample_rate;
             audioCodec = decoder;
         }
@@ -153,12 +153,37 @@ avideo_error AVCodecContainer::fetchAndDecodeNextVideoFrame()
     if(response == AVERROR_EOF)
         return AVIDEO_END_OF_STREAM;
 
-    return response < 0 ? AVIDEO_ERROR : AVIDEO_OK;
+    if(response < 0)
+        return AVIDEO_ERROR;
+
+    if(!convertedVideoFrame || convertedVideoFrame->width != videoFrame->width || convertedVideoFrame->height != videoFrame->height)
+    {
+        if(convertedVideoFrame)
+            av_frame_free(&convertedVideoFrame);
+        convertedVideoFrame = av_frame_alloc();
+        convertedVideoFrame->format = AV_PIX_FMT_RGBA;
+        convertedVideoFrame->width = videoFrame->width;
+        convertedVideoFrame->height = videoFrame->height;
+        av_frame_get_buffer(convertedVideoFrame, 0);
+    } 
+    if(!swsContext)
+    {
+        swsContext = sws_getContext(
+        videoFrame->width, videoFrame->height, AVPixelFormat(videoFrame->format),
+        convertedVideoFrame->width, convertedVideoFrame->height, AVPixelFormat(convertedVideoFrame->format),
+        SWS_FAST_BILINEAR, nullptr, nullptr, 0);
+    }
+
+    sws_scale(swsContext, videoFrame->data, videoFrame->linesize, 0,
+        videoFrame->height, convertedVideoFrame->data, convertedVideoFrame->linesize);
+    //sws_scale_frame(swsContext, convertedVideoFrame, videoFrame);
+
+    return AVIDEO_OK;
 }
 
 avideo_size AVCodecContainer::getVideoFrameIndex()
 {
-    return videoCodecContext ? videoCodecContext->frame_number : 0;
+    return videoCodecContext ? videoCodecContext->frame_num : 0;
 }
 
 avideo_size AVCodecContainer::getVideoFrameWidth()
@@ -176,14 +201,17 @@ avideo_error AVCodecContainer::readSRGB32ConvertedFrame(avideo_int pitch, avideo
     if(!videoFrame)
         return AVIDEO_NO_FRAME;
 
-    avideo_size frameWidth = videoFrame->width;
-    avideo_size frameHeight = videoFrame->height;
+    avideo_size frameWidth = convertedVideoFrame->width;
+    avideo_size frameHeight = convertedVideoFrame->height;
 
     uint8_t *destRow = (uint8_t*)buffer;
+    uint8_t *sourceRow = convertedVideoFrame->data[0];
+    int sourcePitch = convertedVideoFrame->linesize[0];
     for(avideo_size y = 0; y < frameHeight; ++y)
     {
-        memset(destRow, 0, frameWidth*4);
+        memcpy(destRow, sourceRow, frameWidth*4);
         destRow += pitch;
+        sourceRow += sourcePitch;
     }
 
     return AVIDEO_OK;
