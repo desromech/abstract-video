@@ -95,19 +95,6 @@ jobs:
             matrix:
                 variant:
                     - os: windows-latest
-                      platformName: windows-x86
-                      vsPlatform: Win32
-                      buildMode: Debug
-                    - os: windows-latest
-                      platformName: windows-x86
-                      vsPlatform: Win32
-                      buildMode: RelWithDebInfo
-                    - os: windows-latest
-                      platformName: windows-x86
-                      vsPlatform: Win32
-                      buildMode: Release
-
-                    - os: windows-latest
                       platformName: windows-x64
                       vsPlatform: x64
                       buildMode: Debug
@@ -134,7 +121,7 @@ jobs:
               run: ./scripts/ci-package-artifacts.ps1
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@v
+              uses: actions/upload-artifact@v4
               with:
                   name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
                   path: artifacts/dist/*
