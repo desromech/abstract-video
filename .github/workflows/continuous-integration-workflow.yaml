@@ -20,9 +20,9 @@ jobs:
         env:
             PLATFORM_NAME: ${{ matrix.variant.platformName }}
             BUILD_MODE: ${{ matrix.variant.buildMode }}
-            PROJECT_NAME: abstract-gpu
+            PROJECT_NAME: abstract-video
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
 
             - name: CI Build
               run: ./scripts/ci-build.sh
@@ -31,7 +31,7 @@ jobs:
               run: ./scripts/ci-package-artifacts.sh
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@3
+              uses: actions/upload-artifact@4
               with:
                   name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
                   path: artifacts/dist/*
@@ -61,10 +61,10 @@ jobs:
         env:
             PLATFORM_NAME: ${{ matrix.variant.platformName }}
             BUILD_MODE: ${{ matrix.variant.buildMode }}
-            PROJECT_NAME: abstract-gpu
+            PROJECT_NAME: abstract-video
             MACOSX_DEPLOYMENT_TARGET: 10.14
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
 
             - name: CI Build
               run: ./scripts/ci-build.sh
@@ -73,7 +73,7 @@ jobs:
               run: ./scripts/ci-package-artifacts.sh
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
                   path: artifacts/dist/*
@@ -120,9 +120,9 @@ jobs:
             VS_PLATFORM: ${{ matrix.variant.vsPlatform }}
             PLATFORM_NAME: ${{ matrix.variant.platformName }}
             BUILD_MODE: ${{ matrix.variant.buildMode }}
-            PROJECT_NAME: abstract-gpu
+            PROJECT_NAME: abstract-video
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
 
             - name: CI Build
               run: ./scripts/ci-build.ps1
