@@ -36,6 +36,7 @@ rm -rf artifact
 mkdir -vp artifacts/dist-package/$PROJECT_NAME
 cp -v LICENSE ThirdPartyNotices.txt artifacts/dist-package/$PROJECT_NAME
 cp -Rv build/dist artifacts/dist-package/$PROJECT_NAME/lib
+cp -Rv build/thirdparty/ffmpeg_install/lib/* artifacts/dist-package/$PROJECT_NAME/lib
 
 # Create the tar
 cd artifacts/dist-package

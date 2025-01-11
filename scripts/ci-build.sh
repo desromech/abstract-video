@@ -1,11 +1,6 @@
 #!/bin/bash
 set -ex
 
-# Use the vulkan SDK, if it exists.
-if test -e ./thirdparty/vulkan-sdk; then
-    source ./thirdparty/vulkan-sdk/setup-env.sh
-fi
-
 echo "========================================================================="
 echo "Generating cmake project"
 mkdir build
