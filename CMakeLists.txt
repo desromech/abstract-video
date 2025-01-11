@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(AVIDEO)
 
 if(APPLE)
-	set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+	set(CMAKE_OSX_ARCHITECTURES "arm64")
 endif()
 
 option(AVIDEO_BUILD_SAMPLES "Build AVIDEO Samples" OFF)
