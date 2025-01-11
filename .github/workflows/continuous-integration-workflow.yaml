@@ -31,7 +31,7 @@ jobs:
               run: ./scripts/ci-package-artifacts.sh
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@3
+              uses: actions/upload-artifact@2
               with:
                   name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
                   path: artifacts/dist/*
