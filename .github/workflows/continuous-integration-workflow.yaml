@@ -30,11 +30,11 @@ jobs:
             - name: Package artifacts
               run: ./scripts/ci-package-artifacts.sh
 
-            - name: Upload artifacts
-              uses: actions/upload-artifact@2
-              with:
-                  name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
-                  path: artifacts/dist/*
+            #- name: Upload artifacts
+            #  uses: actions/upload-artifact@4
+            #  with:
+            #      name: build-${{ env.PLATFORM_NAME }}-${{ env.BUILD_MODE }}
+            #      path: artifacts/dist/*
 
             - name: Release
               uses: softprops/action-gh-release@v1
