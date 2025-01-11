@@ -25,9 +25,6 @@ BaselineOfAbstractVideo >> baselineForPharo: spec [
 		];
 		package: #'AbstractVideo-GeneratedPharo' with: [
 			spec requires: #(#'AbstractVideo-CorePharo' )
-		];
-		package: #'AbstractVideo-Samples' with: [
-			spec requires: #(#'AbstractVideo-CorePharo' #'AbstractVideo-GeneratedPharo' )
 		]
 
 ]
@@ -51,9 +48,6 @@ BaselineOfAbstractVideo >> baselineForSqueak: spec [
 		];
 		package: #'AbstractVideo-GeneratedSqueak' with: [
 			spec requires: #(#'AbstractVideo-CoreSqueak' )
-		];
-		package: #'AbstractVideo-Samples' with: [
-			spec requires: #(#'AbstractVideo-CoreSqueak' #'AbstractVideo-GeneratedSqueak')
 		]
 ]
 
