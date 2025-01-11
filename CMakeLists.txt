@@ -75,6 +75,6 @@ set(AVIDEO_SAMPLES_LIBS ${AVIDEO_SAMPLES_LIBS} ${SDL2_LIBRARIES} ${AVIDEO_MAIN_L
 # Build the implementations
 add_subdirectory(implementations)
 
-#if(AVIDEO_BUILD_SAMPLES)
+if(AVIDEO_BUILD_SAMPLES)
 	add_subdirectory(samples)
-#endif()
+endif()
