@@ -1,0 +1,14 @@
+prefix=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install
+exec_prefix=${prefix}
+libdir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/lib
+includedir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 59.26.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil 
+Libs.private: -lm -luser32 -lbcrypt -latomic
+Cflags: -I${includedir}

@@ -1,0 +1,14 @@
+prefix=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install
+exec_prefix=${prefix}
+libdir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/lib
+includedir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/include
+
+Name: libswresample
+Description: FFmpeg audio resampling library
+Version: 5.2.100
+Requires: 
+Requires.private: libavutil >= 59.26.100
+Conflicts:
+Libs: -L${libdir}  -lswresample 
+Libs.private: -lm -latomic
+Cflags: -I${includedir}

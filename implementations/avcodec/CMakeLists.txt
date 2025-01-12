@@ -19,4 +19,4 @@ else()
 endif()
 
 add_library(${AvideoAVCodec} SHARED ${AvideoAVCodec_Sources})
-target_link_libraries(${AvideoAVCodec} avcodec avformat swscale)
+target_link_libraries(${AvideoAVCodec} avutil avcodec avformat swscale)

@@ -1,0 +1,14 @@
+prefix=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install
+exec_prefix=${prefix}
+libdir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/lib
+includedir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/include
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 61.4.100
+Requires: 
+Requires.private: libavcodec >= 61.8.100, libswresample >= 5.2.100, libavutil >= 59.26.100
+Conflicts:
+Libs: -L${libdir}  -lavformat 
+Libs.private: -lm -latomic -lz -lsecur32 -lws2_32
+Cflags: -I${includedir}

@@ -47,12 +47,29 @@ add_subdirectory(thirdparty)
 include_directories(
 	.
 	include
-	${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/include
 )
 
-link_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/lib
-)
+# Add some include directories
+if(MSVC)
+	include_directories(
+		${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg-windows-install/include
+	)
+
+	link_directories(
+		${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg-windows-install/bin
+		${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ffmpeg-windows-install/lib
+	)
+else()
+	include_directories(
+		${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/include
+	)
+
+	link_directories(
+		${CMAKE_CURRENT_BINARY_DIR}/thirdparty/ffmpeg_install/lib
+	)
+endif()
+
+
 
 # Set output dir.
 set(MainOutputDirectory "${AVIDEO_BINARY_DIR}/dist")

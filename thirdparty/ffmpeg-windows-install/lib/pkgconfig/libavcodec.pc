@@ -1,0 +1,14 @@
+prefix=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install
+exec_prefix=${prefix}
+libdir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/lib
+includedir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 61.8.100
+Requires: 
+Requires.private: libswresample >= 5.2.100, libavutil >= 59.26.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec 
+Libs.private: -liconv -lm -latomic -lmfuuid -lole32 -lstrmiids -lole32 -luser32 -lz
+Cflags: -I${includedir}

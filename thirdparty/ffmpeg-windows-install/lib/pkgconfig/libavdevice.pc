@@ -1,0 +1,14 @@
+prefix=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install
+exec_prefix=${prefix}
+libdir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/lib
+includedir=/c/projects/abstract-video/thirdparty/ffmpeg-windows-install/include
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 61.2.100
+Requires: 
+Requires.private: libavfilter >= 10.2.102, libswscale >= 8.2.100, libavformat >= 61.4.100, libavcodec >= 61.8.100, libswresample >= 5.2.100, libavutil >= 59.26.100
+Conflicts:
+Libs: -L${libdir}  -lavdevice 
+Libs.private: -lpsapi -lole32 -lstrmiids -luuid -loleaut32 -lshlwapi -lgdi32 -lm -latomic -lvfw32
+Cflags: -I${includedir}
