@@ -28,6 +28,7 @@ mkdir $DEST > $null
 cp LICENSE $DEST
 cp ThirdPartyNotices.txt $DEST
 cp -R $BUILD_DIR $DEST/lib
+cp thirdparty/ffmpeg-windows-install/bin/*.dll $DEST/lib
 mkdir "artifacts/dist" > $null
 
 # Create the zip
