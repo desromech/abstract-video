@@ -53,7 +53,6 @@ BaselineOfAbstractVideo >> baselineForSqueak: spec [
 
 { #category : 'baselines' }
 BaselineOfAbstractVideo >> postLoadActionsForPharo [
-	(Smalltalk globals at: #AVIDEOCBindings) fetchLibraryInPostLoadAction.
 	(Smalltalk globals at: #AVIDEOGeneratedDoIt) initializeBindings.
 ]
 
